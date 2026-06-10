@@ -1,0 +1,96 @@
+// Prisma Schema for Grade Optimizer & KPI Dashboard
+// Generated in accordance with Guardrail 1: Integer-Based Precision Mathematics
+// All percentages and scores stored as integers (multiply by 100)
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// User Model - Represents authenticated users with tenant isolation
+model User {
+  id            String         @id @default(uuid())
+  email         String         @unique
+  name          String
+  tenantId      String         @unique
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  courses       Course[]
+  notifications Notification[]
+
+  @@index([tenantId])
+  @@map("users")
+}
+
+// Course Model - Represents academic courses with grading configuration
+model Course {
+  id              String         @id @default(uuid())
+  name            String
+  sks             Int            // Credits: 1-6
+  targetGrade     TargetGrade    @default(A)
+  targetThreshold Int            @default(8000) // Integer storage: 8000 = 80.00%
+  tenantId        String
+  version         Int            @default(1)
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+  user            User           @relation(fields: [tenantId], references: [tenantId], onDelete: Cascade)
+  components      Component[]
+  notifications   Notification[]
+
+  @@index([tenantId, createdAt])
+  @@map("courses")
+}
+
+// Component Model - Represents grading components within a course
+model Component {
+  id            String   @id @default(uuid())
+  name          String
+  weight        Int      // Integer storage: 0-10000 representing 0.00% - 100.00%
+  achievedScore Int?     // Integer storage: 0-10000 representing 0.00 - 100.00, nullable
+  courseId      String
+  version       Int      @default(1)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  course        Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  @@index([courseId, weight])
+  @@map("components")
+}
+
+// Notification Model - Represents alert notifications for grade risks
+model Notification {
+  id         String     @id @default(uuid())
+  courseId   String
+  tenantId   String
+  alertLevel AlertLevel
+  message    String
+  isRead     Boolean    @default(false)
+  createdAt  DateTime   @default(now())
+  course     Course     @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  user       User       @relation(fields: [tenantId], references: [tenantId], onDelete: Cascade)
+
+  @@index([tenantId, isRead, createdAt])
+  @@map("notifications")
+}
+
+// Enum: Target Grade Options
+enum TargetGrade {
+  A
+  AB
+  B
+  BC
+  C
+  D
+  E
+}
+
+// Enum: Alert Level for Risk Classification
+enum AlertLevel {
+  NORMAL
+  WARNING
+  DANGER
+}
