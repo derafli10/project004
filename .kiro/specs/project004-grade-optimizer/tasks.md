@@ -36,7 +36,7 @@ The implementation follows a bottom-up approach: database schema → data access
 
 
 - [ ] 2. Implement core utility libraries
-  - [ ] 2.1 Create integer-decimal conversion utilities
+  - [x] 2.1 Create integer-decimal conversion utilities
     - Implement `toInteger(decimal: number): number` function (multiply by 100)
     - Implement `toDecimal(integer: number): number` function (divide by 100)
     - Implement `formatPercentage(integer: number): string` function (e.g., "85.50%")
