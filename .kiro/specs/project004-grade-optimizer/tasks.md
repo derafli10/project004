@@ -44,14 +44,14 @@ The implementation follows a bottom-up approach: database schema → data access
     - Add comprehensive JSDoc comments with examples
     - _Requirements: Guardrail 1.4-1.6_
 
-  - [ ] 2.2 Write property test for integer-decimal round-trip
+  - [-] 2.2 Write property test for integer-decimal round-trip
     - **Property 11: Integer-Decimal Conversion Round-Trip**
     - **Validates: Requirements Guardrail 1**
     - Use fast-check to generate random decimals [0.00, 100.00]
     - Assert toDecimal(toInteger(d)) equals d rounded to 2 decimal places
     - Test edge cases: 0.00, 100.00, 0.01, 99.99
 
-  - [ ] 2.3 Create Zod validation schemas
+  - [x] 2.3 Create Zod validation schemas
     - Define CourseSchema (name: string 1-100 chars, sks: int 1-6, targetGrade: enum)
     - Define ComponentSchema (name: string 1-100 chars, weight: int 1-10000, achievedScore: int 0-10000 nullable)
     - Define ComponentsArraySchema with weight sum validation (10000 ±10 tolerance)
