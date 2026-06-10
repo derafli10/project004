@@ -17,7 +17,7 @@ The implementation follows a bottom-up approach: database schema → data access
     - Set up ESLint with strict TypeScript rules
     - _Requirements: Guardrail 4.1, Guardrail 3.1, 13.1-13.5_
 
-  - [ ] 1.2 Create Prisma schema with integer-based precision
+  - [x] 1.2 Create Prisma schema with integer-based precision
     - Define User model with tenantId unique constraint
     - Define Course model with integer targetThreshold field
     - Define Component model with integer weight and achievedScore fields
