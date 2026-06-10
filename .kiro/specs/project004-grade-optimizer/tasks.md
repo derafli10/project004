@@ -44,7 +44,7 @@ The implementation follows a bottom-up approach: database schema → data access
     - Add comprehensive JSDoc comments with examples
     - _Requirements: Guardrail 1.4-1.6_
 
-  - [-] 2.2 Write property test for integer-decimal round-trip
+  - [x] 2.2 Write property test for integer-decimal round-trip
     - **Property 11: Integer-Decimal Conversion Round-Trip**
     - **Validates: Requirements Guardrail 1**
     - Use fast-check to generate random decimals [0.00, 100.00]

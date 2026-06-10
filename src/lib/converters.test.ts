@@ -122,3 +122,90 @@ describe('round-trip conversion', () => {
     });
   });
 });
+
+/**
+ * Property-Based Tests for Integer-Decimal Conversion
+ * **Validates: Requirements Guardrail 1**
+ */
+import * as fc from 'fast-check';
+
+describe('Property 11: Integer-Decimal Conversion Round-Trip', () => {
+  it('should maintain precision for any decimal in range [0.00, 100.00]', () => {
+    fc.assert(
+      fc.property(
+        // Generate decimals in range [0.00, 100.00] with 2 decimal places
+        fc.double({ min: 0, max: 100, noNaN: true }).map(n => 
+          Math.round(n * 100) / 100
+        ),
+        (decimal) => {
+          // Round-trip: decimal -> integer -> decimal
+          const integer = toInteger(decimal);
+          const restored = toDecimal(integer);
+          
+          // The restored value should equal the original rounded to 2 decimal places
+          const expected = Math.round(decimal * 100) / 100;
+          expect(restored).toBe(expected);
+        }
+      ),
+      { numRuns: 1000 }
+    );
+  });
+
+  it('should handle edge cases: 0.00, 100.00, 0.01, 99.99', () => {
+    const edgeCases = [0.00, 100.00, 0.01, 99.99];
+    
+    edgeCases.forEach(value => {
+      const integer = toInteger(value);
+      const restored = toDecimal(integer);
+      
+      // Edge cases should round-trip exactly
+      expect(restored).toBe(value);
+    });
+  });
+
+  it('should never produce floating-point precision errors', () => {
+    fc.assert(
+      fc.property(
+        fc.double({ min: 0, max: 100, noNaN: true }).map(n => 
+          Math.round(n * 100) / 100
+        ),
+        (decimal) => {
+          const integer = toInteger(decimal);
+          const restored = toDecimal(integer);
+          
+          // Check that restored value has exactly 2 decimal places
+          const decimalPlaces = (restored.toString().split('.')[1] || '').length;
+          expect(decimalPlaces).toBeLessThanOrEqual(2);
+          
+          // Check no accumulation of errors (difference should be < 0.01)
+          const diff = Math.abs(restored - decimal);
+          expect(diff).toBeLessThan(0.01);
+        }
+      ),
+      { numRuns: 1000 }
+    );
+  });
+
+  it('should be idempotent (multiple round-trips produce same result)', () => {
+    fc.assert(
+      fc.property(
+        fc.double({ min: 0, max: 100, noNaN: true }).map(n => 
+          Math.round(n * 100) / 100
+        ),
+        (decimal) => {
+          // First round-trip
+          const integer1 = toInteger(decimal);
+          const restored1 = toDecimal(integer1);
+          
+          // Second round-trip using restored value
+          const integer2 = toInteger(restored1);
+          const restored2 = toDecimal(integer2);
+          
+          // Both restored values should be identical
+          expect(restored2).toBe(restored1);
+        }
+      ),
+      { numRuns: 500 }
+    );
+  });
+});
