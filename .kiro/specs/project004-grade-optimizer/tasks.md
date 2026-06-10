@@ -68,7 +68,7 @@ The implementation follows a bottom-up approach: database schema → data access
     - Generate arrays that sum to 9000 (outside tolerance, should fail)
     - Assert ComponentsArraySchema validation behaves correctly
 
-  - [ ] 2.5 Create transaction utility wrapper
+  - [x] 2.5 Create transaction utility wrapper
     - Implement `executeTransaction<T>(fn: (tx: PrismaClient) => Promise<T>): Promise<Result<T>>`
     - Wrap Prisma transaction logic with automatic rollback on error
     - Return typed Result discriminated union { success: boolean; data?: T; error?: string }
