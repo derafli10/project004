@@ -280,8 +280,8 @@ The implementation follows a bottom-up approach: database schema → data access
 - [x] 9. Checkpoint - Ensure all tests pass
   - Ensure all tests pass, ask the user if questions arise.
 
-- [ ] 10. Implement Industrial Brutalist design system tokens
-  - [ ] 10.1 Configure Tailwind with custom brutalist tokens
+- [x] 10. Implement Industrial Brutalist design system tokens
+  - [x] 10.1 Configure Tailwind with custom brutalist tokens
     - Extend Tailwind config with custom colors: brutal-black (#09090B), brutal-orange (#FF4500), warning-orange (#FB8C00), success-green (#10B981)
     - Add custom font families: Space Grotesk (headings), Space Mono (numeric), Inter (body)
     - Configure custom border widths: border-brutal (2px solid)
@@ -289,7 +289,7 @@ The implementation follows a bottom-up approach: database schema → data access
     - Add custom shadow utilities for hard shadows
     - _Requirements: Guardrail 3, 13.1-13.5_
 
-  - [ ] 10.2 Create reusable UI component primitives
+  - [x] 10.2 Create reusable UI component primitives
     - Create Button component with brutalist styling (border-2, rounded-none, hover hard shadow)
     - Create Card component (#09090B background, #E2E8F0 border)
     - Create Input component (border-2, focus ring with #FF4500 accent)
@@ -298,7 +298,7 @@ The implementation follows a bottom-up approach: database schema → data access
     - Add ARIA labels for accessibility
     - _Requirements: 13.6-13.7, Guardrail 3_
 
-  - [ ] 10.3 Create responsive layout shell components
+  - [x] 10.3 Create responsive layout shell components
     - Create DesktopSidebar component (w-64, fixed left, visible md:block)
     - Create MobileBottomNav component (fixed bottom, visible md:hidden)
     - Create PageContainer component with proper padding and max-width
