@@ -6,7 +6,7 @@
  * **Validates: Requirements 7.1-7.4, 8.3-8.4, Guardrail 2**
  */
 
-import { describe, it, expect, beforeEach, vi, afterEach } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import {
   getTenantId,
   validateTenantOwnership,
@@ -80,7 +80,7 @@ describe('Tenant Isolation Helper Functions', () => {
       validateTenantOwnership('tenant-123', 'tenant-456');
       
       expect(consoleSpy).toHaveBeenCalled();
-      expect(consoleSpy.mock.calls[0][0]).toContain('[TENANT_SECURITY]');
+      expect(consoleSpy.mock.calls[0]![0]).toContain('[TENANT_SECURITY]');
       
       consoleSpy.mockRestore();
     });

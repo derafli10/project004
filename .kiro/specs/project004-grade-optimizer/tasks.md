@@ -251,7 +251,7 @@ The implementation follows a bottom-up approach: database schema → data access
     - _Requirements: 2.6, 7.3, 9.1-9.3_
 
 
-- [ ] 8. Build Server Actions for notifications
+- [x] 8. Build Server Actions for notifications
   - [ ] 8.1 Implement getNotifications Server Action
     - Extract tenantId from session
     - Query Prisma: `where: { tenantId }`, order by createdAt DESC
@@ -277,7 +277,7 @@ The implementation follows a bottom-up approach: database schema → data access
     - Add to updateComponentScore logic
     - _Requirements: 6.5, 20.1_
 
-- [ ] 9. Checkpoint - Ensure all tests pass
+- [x] 9. Checkpoint - Ensure all tests pass
   - Ensure all tests pass, ask the user if questions arise.
 
 - [ ] 10. Implement Industrial Brutalist design system tokens

@@ -90,12 +90,24 @@ export async function updateComponentScore(
     // Verify tenant ownership via course relation
     const component = await prisma.component.findUnique({
       where: { id: validatedData.componentId },
-      include: { course: true },
+      include: { 
+        course: {
+          include: {
+            components: true,
+          }
+        } 
+      },
     });
 
     if (!component || component.course.tenantId !== tenantId) {
       return { success: false, error: "Component not found or access denied" };
     }
+
+    // Calculate alert level BEFORE update for comparison
+    const previousAnalytics = calculateCourseAnalytics(
+      component.course.components,
+      component.course.targetThreshold
+    );
 
     return await executeTransaction(async (tx) => {
       const updatedComponent = await tx.component.update({
@@ -113,15 +125,35 @@ export async function updateComponentScore(
         }
       });
 
-      // Recalculate analytics to verify logic (or to trigger notifications later in task 8)
-      // For now, we just perform the calculation as required by 7.3 "Trigger analytics recalculation"
+      // Recalculate analytics after update to determine new alert level
       const allComponents = updatedComponent.course.components;
       const targetThreshold = updatedComponent.course.targetThreshold;
-      // Analytics recalculation as required by 7.3 - will be used in task 8 for notification triggers
-      void calculateCourseAnalytics(allComponents, targetThreshold);
+      const newAnalytics = calculateCourseAnalytics(allComponents, targetThreshold);
+
+      // Check if alert level changed to DANGER (Requirements 6.5, 20.1)
+      if (
+        previousAnalytics.alertLevel !== "DANGER" &&
+        newAnalytics.alertLevel === "DANGER"
+      ) {
+        // Create notification for DANGER alert
+        const courseName = updatedComponent.course.name;
+        const targetGrade = updatedComponent.course.targetGrade;
+        const requiredScore = newAnalytics.requiredScore?.toFixed(2) || "N/A";
+        
+        const message = `Required score for ${courseName} exceeds 100% (${requiredScore}%). Target grade ${targetGrade} is no longer achievable.`;
+
+        await tx.notification.create({
+          data: {
+            courseId: updatedComponent.course.id,
+            tenantId,
+            alertLevel: "DANGER",
+            message,
+            isRead: false,
+          },
+        });
+      }
 
       // Return just the component to match Result<Component>
-      // The analytics can be used later to trigger notifications if alertLevel is DANGER
       const { course, ...componentWithoutCourse } = updatedComponent;
       return componentWithoutCourse;
     });
