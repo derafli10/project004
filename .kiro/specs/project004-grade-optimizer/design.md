@@ -274,7 +274,7 @@ type VoidResult = Result<void>;
 #### Course Management Actions
 
 ```typescript
-// src/app/actions/courses.ts
+// /app/actions/courses.ts
 "use server";
 
 /**
@@ -331,7 +331,7 @@ async function deleteCourse(courseId: string): Promise<Result<void>>;
 #### Component Management Actions
 
 ```typescript
-// src/app/actions/components.ts
+// /app/actions/components.ts
 "use server";
 
 /**
@@ -376,7 +376,7 @@ async function deleteComponent(componentId: string): Promise<Result<void>>;
 #### Notification Actions
 
 ```typescript
-// src/app/actions/notifications.ts
+// /app/actions/notifications.ts
 "use server";
 
 /**
@@ -409,7 +409,7 @@ async function markAllNotificationsRead(): Promise<Result<void>>;
 #### Analytics Engine
 
 ```typescript
-// src/lib/analytics.ts
+// /lib/analytics.ts
 
 /**
  * Calculate cumulative actual score for a course.
@@ -459,7 +459,7 @@ export function calculateCourseAnalytics(
 #### Conversion Utilities
 
 ```typescript
-// src/lib/converters.ts
+// /lib/converters.ts
 
 /**
  * Convert decimal percentage to integer storage format.
@@ -493,7 +493,7 @@ export function formatScore(integer: number): string;
 #### Validation Schemas
 
 ```typescript
-// src/lib/validations.ts
+// /lib/validations.ts
 import { z } from "zod";
 
 /** Validates course creation/update data */
@@ -531,7 +531,7 @@ export const ScoreUpdateSchema = z.object({
 #### Transaction Utilities
 
 ```typescript
-// src/lib/transactions.ts
+// /lib/transactions.ts
 import { PrismaClient } from "@prisma/client";
 
 /**
@@ -661,13 +661,15 @@ enum AlertLevel {
 
 ### Integer Storage Mappings
 
-| Concept | Display Format | Database Storage | Prisma Type |
-|---------|---------------|------------------|-------------|
-| Component Weight | 25.00% | 2500 | Int |
-| Achieved Score | 85.75 | 8575 | Int |
-| Target Threshold (Grade A) | 80.00% | 8000 | Int |
-| Cumulative Actual | 65.50% | Calculated from integers, displayed as decimal | N/A (computed) |
-| Required Score | 92.33 | Calculated from integers, displayed as decimal | N/A (computed) |
+|           Concept          | Display Format |      Database Storage     |   Prisma Type   |
+|----------------------------|----------------|---------------------------|-----------------|
+| Component Weight           | 25.00%         | 2500                      | Int             |
+| Achieved Score             | 85.75%         | 8575                      | Int             |
+| Target Threshold (Grade A) | 80.00%         | 8000                      | Int             |
+| Cumulative Actual          | 65.50%         | Calculated from integers, |                 |
+|                            |                | displayed as decimal.     | N/A (computed)  |
+| Required Score             | 92.33          | Calculated from integers, |                 |
+|                            |                | displayed as decimal.     | N/A (computed)  |
 
 ### Constraint Enforcement
 
@@ -1316,9 +1318,9 @@ import type { Config } from "tailwindcss";
 const config: Config = {
   darkMode: "class",
   content: [
-    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
+    "./components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     extend: {
@@ -1422,7 +1424,7 @@ body {
 **Button Component - Brutalist Style:**
 
 ```tsx
-// src/components/ui/Button.tsx
+// /components/ui/Button.tsx
 interface ButtonProps {
   variant: "primary" | "secondary" | "danger";
   size: "sm" | "md" | "lg";
@@ -1470,7 +1472,7 @@ export function Button({
 **Card Component - High Contrast Container:**
 
 ```tsx
-// src/components/ui/Card.tsx
+// /components/ui/Card.tsx
 interface CardProps {
   children: React.ReactNode;
   padding?: "sm" | "md" | "lg";
@@ -1497,7 +1499,7 @@ export function Card({ children, padding = "md", border = true }: CardProps) {
 **Input Component - Brutalist Form Field:**
 
 ```tsx
-// src/components/ui/Input.tsx
+// /components/ui/Input.tsx
 interface InputProps {
   type: "text" | "number" | "email";
   value: string | number;
@@ -1560,7 +1562,7 @@ export function Input({
 **Alert Level Indicator:**
 
 ```tsx
-// src/components/AlertBadge.tsx
+// /components/AlertBadge.tsx
 interface AlertBadgeProps {
   level: "NORMAL" | "WARNING" | "DANGER";
   requiredScore: number | null;
@@ -1601,7 +1603,7 @@ export function AlertBadge({ level, requiredScore }: AlertBadgeProps) {
 **Progress Bar - Score Visualization:**
 
 ```tsx
-// src/components/ProgressBar.tsx
+// /components/ProgressBar.tsx
 interface ProgressBarProps {
   current: number; // 0-100
   target: number; // 0-100
@@ -1676,28 +1678,6 @@ All interactive elements include:
 
 ## Deployment and Infrastructure
 
-### Environment Configuration
-
-**Environment Variables:**
-
-```bash
-# .env.example
-
-# Database
-DATABASE_URL="postgresql://user:password@localhost:5432/grade_optimizer"
-
-# Authentication
-SESSION_SECRET="generate-secure-random-string-min-32-chars"
-SESSION_DURATION_DAYS=7
-
-# Application
-NEXT_PUBLIC_APP_URL="http://localhost:3000"
-NODE_ENV="development" # production | staging | development
-
-# Logging
-LOG_LEVEL="info" # debug | info | warn | error
-```
-
 ### Database Setup
 
 **Prisma Migration Strategy:**
@@ -1713,7 +1693,7 @@ npx prisma migrate deploy
 **Connection Pooling:**
 
 ```typescript
-// src/lib/db.ts
+// /lib/db.ts
 import { PrismaClient } from "@prisma/client";
 
 const globalForPrisma = globalThis as unknown as {
@@ -1799,7 +1779,7 @@ npm run start
 **Input Sanitization:**
 
 ```typescript
-// src/lib/validators.ts
+// /lib/validators.ts
 import sanitizeHtml from "sanitize-html";
 
 export function sanitizeInput(input: string): string {
@@ -1849,7 +1829,7 @@ export async function middleware(request: NextRequest) {
 **Health Check Endpoint:**
 
 ```typescript
-// src/app/api/health/route.ts
+// /app/api/health/route.ts
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
 
@@ -1880,7 +1860,7 @@ export async function GET() {
 **Performance Metrics:**
 
 ```typescript
-// src/lib/metrics.ts
+// /lib/metrics.ts
 export function measurePerformance<T>(
   name: string,
   fn: () => T
@@ -1906,7 +1886,7 @@ export function measurePerformance<T>(
 For users migrating from Excel/CSV grade tracking:
 
 ```typescript
-// src/lib/import.ts
+// /lib/import.ts
 import { parse } from "csv-parse/sync";
 
 interface CSVRow {
@@ -1999,7 +1979,7 @@ export async function importFromCSV(
 ### Export Utility
 
 ```typescript
-// src/lib/export.ts
+// /lib/export.ts
 export async function exportToJSON(tenantId: string): Promise<string> {
   const courses = await prisma.course.findMany({
     where: { tenantId },

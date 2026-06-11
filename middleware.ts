@@ -9,8 +9,8 @@
 
 import { NextResponse, NextRequest } from 'next/server';
 
-import { validateRequestSession } from './src/lib/auth';
-import { getTenantId } from './src/lib/session';
+import { validateRequestSession } from './lib/auth';
+import { getTenantId } from './lib/session';
 
 // Security headers configuration
 const securityHeaders = {
@@ -26,12 +26,12 @@ const securityHeaders = {
 function validateCsrfHeaders(request: NextRequest): boolean {
   const origin = request.headers.get('origin');
   const host = request.headers.get('host');
-  
+
   // Skip CSRF check for same-origin requests and GET requests
   if (request.method === 'GET' || request.method === 'HEAD' || request.method === 'OPTIONS') {
     return true;
   }
-  
+
   // For API routes and Server Actions, validate Origin header
   if (origin && host) {
     try {
@@ -41,7 +41,7 @@ function validateCsrfHeaders(request: NextRequest): boolean {
       return false;
     }
   }
-  
+
   // Fallback: Check for custom CSRF token in header
   const csrfToken = request.headers.get('x-csrf-token');
   return csrfToken !== null;
@@ -64,7 +64,7 @@ function validateCsrfHeaders(request: NextRequest): boolean {
 export async function middleware(request: NextRequest) {
   // Start timing for performance monitoring
   const startTime = Date.now();
-  
+
   // Validate CSRF headers for state-changing requests
   if (!validateCsrfHeaders(request)) {
     console.warn('CSRF validation failed for request:', {
@@ -73,23 +73,23 @@ export async function middleware(request: NextRequest) {
       origin: request.headers.get('origin'),
       host: request.headers.get('host'),
     });
-    
+
     return new NextResponse('CSRF validation failed', {
       status: 403,
       headers: securityHeaders,
     });
   }
-  
+
   // Validate user session
   const session = await validateRequestSession(request);
-  
+
   if (!session) {
     // Session invalid or expired - return 401 Unauthorized
     console.warn('Invalid session for request:', {
       method: request.method,
       url: request.url,
     });
-    
+
     return new NextResponse('Unauthorized - Invalid or expired session', {
       status: 401,
       headers: {
@@ -98,20 +98,20 @@ export async function middleware(request: NextRequest) {
       },
     });
   }
-  
+
   // Extract tenantId from session
   const tenantId = getTenantId(session);
-  
+
   if (!tenantId) {
     // No tenantId in valid session - this should never happen but we handle it
     console.error('Valid session but missing tenantId:', session);
-    
+
     return new NextResponse('Unauthorized - Missing tenant identifier', {
       status: 401,
       headers: securityHeaders,
     });
   }
-  
+
   // Log successful authentication for audit purposes
   console.log('Authenticated request:', {
     userId: session.userId,
@@ -120,25 +120,25 @@ export async function middleware(request: NextRequest) {
     url: request.url,
     durationMs: Date.now() - startTime,
   });
-  
+
   // Clone request to add tenantId to headers for Server Actions
   const requestHeaders = new Headers(request.headers);
   requestHeaders.set('x-tenant-id', tenantId);
   requestHeaders.set('x-user-id', session.userId);
   requestHeaders.set('x-user-email', session.email);
-  
+
   // Create response with security headers
   const response = NextResponse.next({
     request: {
       headers: requestHeaders,
     },
   });
-  
+
   // Add security headers to response
   Object.entries(securityHeaders).forEach(([key, value]) => {
     response.headers.set(key, value);
   });
-  
+
   return response;
 }
 

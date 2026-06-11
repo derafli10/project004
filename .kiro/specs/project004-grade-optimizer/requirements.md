@@ -693,7 +693,7 @@ Create prisma/schema.prisma with the following requirements:
 
 Also create:
 - prisma/seed.ts for development data seeding
-- src/lib/db.ts for Prisma singleton client instance
+- /lib/db.ts for Prisma singleton client instance
 ```
 
 **Definition of Done / QA Criteria**:
@@ -717,26 +717,26 @@ Also create:
 **AI Prompt Guidelines**:
 ```
 Create authentication system with multi-tenant isolation:
-1. src/lib/auth.ts - Authentication utilities:
+1. /lib/auth.ts - Authentication utilities:
    - Session validation functions
    - TenantId extraction from session
    - Token verification and expiration checks
-2. src/middleware.ts - Next.js middleware:
+2. /middleware.ts - Next.js middleware:
    - Protect all /app routes except /login
    - Validate session tokens
    - Attach tenantId to request context
    - Return 401 for invalid sessions
    - Return 403 for tenantId mismatches
-3. src/lib/session.ts - Session management:
+3. /lib/session.ts - Session management:
    - createSession(userId, tenantId)
    - validateSession(token)
    - getTenantId(session)
-4. src/app/login/page.tsx - Login page (temporary mock for development):
+4. /app/login/page.tsx - Login page (temporary mock for development):
    - Accept email input
    - Create/retrieve user with tenantId
    - Set session cookie
    - Redirect to dashboard
-5. src/lib/server-context.ts - Server-side context utilities:
+5. /lib/server-context.ts - Server-side context utilities:
    - getTenantIdFromRequest() - Extract tenantId from session
    - validateTenantAccess(tenantId, resourceTenantId) - Verify access
 
@@ -769,17 +769,17 @@ Configure Tailwind CSS for Industrial Brutalist design system:
    - fontFamily: { grotesk: 'Space Grotesk', mono: 'Space Mono', sans: 'Inter' }
    - borderWidth: { brutal: '2px' }
    - borderRadius: { brutal: '0px' }
-2. src/app/globals.css - Global styles:
+2. /app/globals.css - Global styles:
    - @import Google Fonts: Space Grotesk, Space Mono, Inter
    - Tailwind directives: @tailwind base, components, utilities
    - Custom CSS variables for brutalist tokens
    - Base typography styles (h1-h6 with Space Grotesk, body with Inter)
    - Focus visible styles for accessibility
-3. src/app/layout.tsx - Root layout:
+3. /app/layout.tsx - Root layout:
    - Apply font classes to html/body
    - Dark mode configuration (forced dark)
    - Meta tags for viewport and charset
-4. src/components/ui/ - Base UI components:
+4. /components/ui/ - Base UI components:
    - Button.tsx - Brutalist button with 2px border, no radius
    - Card.tsx - Container with rigid borders
    - Input.tsx - Form input with brutalist styling
@@ -810,22 +810,22 @@ Use class names like: bg-brutal-black, text-brutal-orange, border-brutal, rounde
 **AI Prompt Guidelines**:
 ```
 Build production-grade utilities for data integrity:
-1. src/lib/transactions.ts - ACID transaction wrappers:
+1. /lib/transactions.ts - ACID transaction wrappers:
    - executeTransaction<T>(fn: (tx) => Promise<T>): Promise<Result<T>>
    - Result type: { success: boolean; data?: T; error?: string }
    - Automatic rollback on errors
    - Structured error logging
-2. src/lib/validations.ts - Zod schemas:
+2. /lib/validations.ts - Zod schemas:
    - CourseSchema: name (string 1-100), sks (int 1-6), targetGrade (enum)
    - ComponentSchema: name (string 1-100), weight (int 1-10000), achievedScore (int? 0-10000)
    - ComponentsArraySchema: Validate array, ensure weights sum to 10000 (±10 tolerance)
    - ScoreUpdateSchema: achievedScore (int 0-10000), componentId (uuid)
-3. src/lib/converters.ts - Integer/Decimal conversion utilities:
+3. /lib/converters.ts - Integer/Decimal conversion utilities:
    - toInteger(decimal: number): number - Multiply by 100, round
    - toDecimal(integer: number): number - Divide by 100
    - formatPercentage(integer: number): string - Convert to "XX.XX%"
    - formatScore(integer: number): string - Convert to "XX.XX"
-4. src/lib/validators.ts - Custom validation functions:
+4. /lib/validators.ts - Custom validation functions:
    - validateWeightSum(components: Component[]): boolean - Check sum === 10000
    - validateTenantOwnership(tenantId, resourceTenantId): boolean
    - sanitizeInput(input: string): string - XSS prevention
@@ -857,7 +857,7 @@ Use these utilities in ALL Server Actions and API routes.
 
 **AI Prompt Guidelines**:
 ```
-Create Server Actions for Course management in src/app/actions/courses.ts:
+Create Server Actions for Course management in /app/actions/courses.ts:
 1. createCourse(formData: FormData): Promise<Result<Course>>
    - Extract tenantId from session (getTenantIdFromRequest)
    - Validate input with CourseSchema
@@ -1061,13 +1061,13 @@ All calculations use integer arithmetic, convert to decimal for display.
 **AI Prompt Guidelines**:
 ```
 Implement robust deletion system with integrity checks:
-1. src/app/actions/components.ts - Component deletion:
+1. /app/actions/components.ts - Component deletion:
    - deleteComponent(componentId): Delete single component
    - Validate tenantId ownership through parent course
    - Check if remaining components sum to 100% after deletion
    - Allow deletion if it enables rebalancing
    - Return validation result to client
-2. src/app/actions/courses.ts - Course deletion (enhance):
+2. /app/actions/courses.ts - Course deletion (enhance):
    - Wrap in Prisma transaction
    - Delete all associated components first
    - Delete course record
@@ -1114,14 +1114,14 @@ All deletions must use transactions with automatic rollback on failure.
 **AI Prompt Guidelines**:
 ```
 Implement optimistic UI pattern for score updates:
-1. src/components/ScoreInput.tsx - Optimistic score input component:
+1. /components/ScoreInput.tsx - Optimistic score input component:
    - Use React.useOptimistic hook
    - Display optimistic value immediately on change
    - Call Server Action in background
    - Reconcile with server response
    - Revert and show error toast on failure
    - Visual indicator for pending state (subtle opacity)
-2. src/app/courses/[id]/page.tsx - Integrate optimistic updates:
+2. /app/courses/[id]/page.tsx - Integrate optimistic updates:
    - Wrap component list in optimistic state
    - Update cumulative actual optimistically
    - Update required score optimistically
@@ -1268,18 +1268,18 @@ Goal: Reduce client bundle by 40% compared to pure client-side approach.
 **AI Prompt Guidelines**:
 ```
 Build robust error handling system:
-1. src/components/ErrorBoundary.tsx - React Error Boundary:
+1. /components/ErrorBoundary.tsx - React Error Boundary:
    - Catch errors in component tree
    - Display brutalist error UI
    - Log error with stack trace
    - Provide "Try Again" button
    - Reset error state on retry
-2. src/app/error.tsx - Next.js Error Component:
+2. /app/error.tsx - Next.js Error Component:
    - Global error handler for app routes
    - Display user-friendly error message
    - Sanitize error details (no stack traces to user)
    - Log full error server-side
-3. src/lib/logger.ts - Structured logging:
+3. /lib/logger.ts - Structured logging:
    - logError(error, context): Log with timestamp, level, message, stack
    - logInfo(message, context): Log informational messages
    - logWarning(message, context): Log warnings
@@ -1361,7 +1361,7 @@ Create data export system in src/app/actions/export.ts:
      ```
    - Validate tenantId ownership
    - Generate within 2 seconds for 100 courses
-2. src/components/ExportButton.tsx - Export button component:
+2. /components/ExportButton.tsx - Export button component:
    - Trigger export on click
    - Show loading state during generation
    - Download JSON file automatically
@@ -1398,7 +1398,7 @@ Export must include metadata and calculated fields.
 **AI Prompt Guidelines**:
 ```
 Build alert level visualization system:
-1. src/components/AlertBadge.tsx - Alert level badge component:
+1. /components/AlertBadge.tsx - Alert level badge component:
    - Props: alertLevel ('NORMAL' | 'WARNING' | 'DANGER')
    - Color mapping:
      * NORMAL: Green (#10B981)
@@ -1415,7 +1415,7 @@ Build alert level visualization system:
    - Required score text color matches alert level
    - Danger message: "Target grade no longer achievable"
    - Warning message: "High score required on remaining components"
-4. src/lib/analytics.ts - Enhanced alert logic:
+4. /lib/analytics.ts - Enhanced alert logic:
    - calculateAlertLevel includes edge cases
    - Handle null required score → NORMAL
    - Handle negative required score → NORMAL
@@ -1453,7 +1453,7 @@ Alert level must be instantly visible and unmistakable.
 **AI Prompt Guidelines**:
 ```
 Create notification system for alert level changes:
-1. src/app/actions/notifications.ts - Notification Server Actions:
+1. /app/actions/notifications.ts - Notification Server Actions:
    - createNotification(courseId, alertLevel, message): Create notification record
    - getNotifications(tenantId): Fetch all user notifications
    - markAsRead(notificationId): Mark notification read
@@ -1465,7 +1465,7 @@ Create notification system for alert level changes:
      * Store in Notification table with tenantId
    - If alert level improves from DANGER → (NORMAL|WARNING):
      * Create "improvement" notification (optional)
-3. src/components/NotificationBell.tsx - Notification UI component:
+3. /components/NotificationBell.tsx - Notification UI component:
    - Bell icon in navigation bar
    - Unread count badge (red #FF4500)
    - Dropdown panel on click
@@ -1543,7 +1543,7 @@ Build import system in src/app/actions/import.ts:
    - Use transaction to import all courses and components
    - Assign tenantId from session to all imported records
    - Return summary: { coursesImported: number, componentsImported: number }
-3. src/components/ImportButton.tsx - Import UI:
+3. /components/ImportButton.tsx - Import UI:
    - File input for JSON upload
    - Validate file type (.json)
    - Read file content
@@ -1600,7 +1600,7 @@ Add optimistic locking to prevent concurrent update conflicts:
      * Offer "Refresh and Retry" button
      * Fetch latest data from server
      * Show differences between local and server state
-4. src/components/ConflictDialog.tsx - Version conflict modal:
+4. /components/ConflictDialog.tsx - Version conflict modal:
    - Display conflict message
    - Show user's changes vs. current server state
    - Buttons: "Use Server Data" | "Keep My Changes"
@@ -1842,7 +1842,7 @@ Test with NVDA (Windows) and VoiceOver (macOS).
 **AI Prompt Guidelines**:
 ```
 Build production logging infrastructure:
-1. src/lib/logger.ts - Enhanced structured logging:
+1. /lib/logger.ts - Enhanced structured logging:
    - Log levels: ERROR, WARN, INFO, DEBUG
    - JSON format for easy parsing
    - Fields: timestamp, level, message, context, stack trace
@@ -1907,7 +1907,7 @@ Ensure no sensitive data leaked in production logs.
 ```
 Final production hardening and rate limiting:
 1. Rate limiting implementation:
-   - src/lib/rate-limit.ts - Rate limiter utility:
+   - /lib/rate-limit.ts - Rate limiter utility:
      * Use in-memory store (or Redis for multi-instance)
      * Sliding window algorithm
      * 100 requests per minute per user (tenantId)
@@ -1934,7 +1934,7 @@ Final production hardening and rate limiting:
    - Ensure SQL injection prevented (Prisma handles this)
    - Ensure CSRF protection enabled
 4. Environment variable validation:
-   - src/lib/env.ts - Validate required env vars on startup:
+   - /lib/env.ts - Validate required env vars on startup:
      * DATABASE_URL
      * SESSION_SECRET
      * LOG_LEVEL
@@ -1953,7 +1953,7 @@ Final production hardening and rate limiting:
    - [ ] Data portability tested
    - [ ] Documentation complete
 6. Health check endpoint:
-   - src/app/api/health/route.ts:
+   - /app/api/health/route.ts:
      * Check database connectivity
      * Check critical dependencies
      * Return HTTP 200 if healthy, 503 if degraded

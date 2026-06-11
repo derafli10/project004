@@ -63,7 +63,7 @@ export async function createCourse(data: CourseInput): Promise<Result<Course>> {
   }
 }
 
-export async function getCourses(): Promise<Result<(Course & { _count: { components: number } })[]>> {
+export async function getCourses(): Promise<Result<CourseWithComponentsAndAnalytics[]>> {
   try {
     const tenantId = await getTenantIdFromRequest();
 
@@ -71,13 +71,16 @@ export async function getCourses(): Promise<Result<(Course & { _count: { compone
       where: { tenantId },
       orderBy: { createdAt: "desc" },
       include: {
-        _count: {
-          select: { components: true },
-        },
+        components: true,
       },
     });
 
-    return { success: true, data: courses };
+    const coursesWithAnalytics = courses.map(course => ({
+      ...course,
+      analytics: calculateCourseAnalytics(course.components, course.targetThreshold)
+    }));
+
+    return { success: true, data: coursesWithAnalytics };
   } catch (error) {
     return {
       success: false,

@@ -306,8 +306,8 @@ The implementation follows a bottom-up approach: database schema → data access
     - _Requirements: 12.1-12.7_
 
 
-- [ ] 11. Build dashboard page (React Server Component)
-  - [ ] 11.1 Create dashboard page route (app/dashboard/page.tsx)
+- [x] 11. Build dashboard page (React Server Component)
+  - [x] 11.1 Create dashboard page route (app/dashboard/page.tsx)
     - Fetch courses using getCourses Server Action
     - Render course list as Server Component with analytics preview
     - Display cumulative actual, required score, alert level badge for each course
@@ -315,20 +315,20 @@ The implementation follows a bottom-up approach: database schema → data access
     - Add "Create Course" button linking to course creation form
     - _Requirements: 11.3-11.6, 13.3-13.4, 19.2-19.3_
 
-  - [ ] 11.2 Implement responsive course list layout
+  - [x] 11.2 Implement responsive course list layout
     - Mobile (<768px): vertical card stack with Course component
     - Desktop (≥768px): high-density table with columns (Name, SKS, Target, Cumulative, Required, Alert)
     - Add lucide-react icons for navigation and actions (strokeWidth={2.5})
     - _Requirements: 12.1-12.4_
 
-  - [ ]* 11.3 Write integration test for dashboard data fetching
+  - [x] 11.3 Write integration test for dashboard data fetching
     - Create test course with components
     - Assert dashboard displays correct cumulative actual and required score
     - Verify alert level badge renders with correct color
     - Test mobile and desktop responsive layouts
 
-- [ ] 12. Build course creation form (Client Component with optimistic updates)
-  - [ ] 12.1 Create CourseForm client component
+- [x] 12. Build course creation form (Client Component with optimistic updates)
+  - [x] 12.1 Create CourseForm client component
     - Implement form with fields: name (text), sks (select 1-6), targetGrade (select A-E)
     - Use React Hook Form with Zod validation (CourseSchema)
     - Call createCourse Server Action on submit
@@ -336,14 +336,14 @@ The implementation follows a bottom-up approach: database schema → data access
     - Add brutalist Button with "Create Course" label
     - _Requirements: 1.1-1.2, 14.3-14.7, 16.1_
 
-  - [ ] 12.2 Implement optimistic UI updates
+  - [x] 12.2 Implement optimistic UI updates
     - Use React useOptimistic hook to instantly add course to UI
     - Show pending state with visual indicator (opacity or border style)
     - Reconcile with server response on success
     - Revert optimistic update on error and display toast notification
     - _Requirements: 10.1-10.6_
 
-  - [ ] 12.3 Add error handling and user feedback
+  - [x] 12.3 Add error handling and user feedback
     - Display validation errors below form fields
     - Show toast notifications for network errors (5-second auto-dismiss)
     - Use color coding: error (red #FF4500), success (green #10B981)
