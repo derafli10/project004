@@ -158,8 +158,8 @@ The implementation follows a bottom-up approach: database schema → data access
     - Assert all operations return 403 Forbidden or empty results
     - Verify database queries include tenantId filter
 
-- [ ] 6. Build Server Actions for course management
-  - [ ] 6.1 Implement createCourse Server Action
+- [x] 6. Build Server Actions for course management
+  - [x] 6.1 Implement createCourse Server Action
     - Define "use server" function with CourseSchema validation
     - Extract tenantId from session
     - Map targetGrade to integer targetThreshold (A=8000, AB=7500, etc.)
@@ -167,7 +167,7 @@ The implementation follows a bottom-up approach: database schema → data access
     - Return Result<Course> with success/error
     - _Requirements: 1.1-1.2, 7.1, Guardrail 4.1-4.5_
 
-  - [ ]* 6.2 Write property test for course CRUD preservation
+  - [x]* 6.2 Write property test for course CRUD preservation
     - **Property 1: Course CRUD Preservation**
     - **Validates: Requirements 1.1, 1.2, 2.1, 3.1**
     - Use fast-check to generate random course data (name, sks 1-6, targetGrade)
@@ -176,14 +176,14 @@ The implementation follows a bottom-up approach: database schema → data access
     - Assert all fields preserved including default targetGrade "A"
     - Assert targetThreshold stored as integer (8000 for "A")
 
-  - [ ] 6.3 Implement getCourses Server Action
+  - [x] 6.3 Implement getCourses Server Action
     - Extract tenantId from session
     - Query Prisma: `where: { tenantId }`, order by createdAt DESC
     - Include components count in response
     - Return Result<Course[]>
     - _Requirements: 7.2, 11.3-11.6_
 
-  - [ ] 6.4 Implement getCourseById Server Action
+  - [x] 6.4 Implement getCourseById Server Action
     - Validate courseId is valid UUID
     - Query Prisma with tenantId filter and include components
     - Calculate analytics using calculateCourseAnalytics
@@ -192,7 +192,7 @@ The implementation follows a bottom-up approach: database schema → data access
     - _Requirements: 7.2, 7.4_
 
 
-  - [ ] 6.5 Implement updateCourse Server Action
+  - [x] 6.5 Implement updateCourse Server Action
     - Validate courseId and partial course data with Zod
     - Use Prisma update with optimistic locking (version field increment)
     - Handle concurrent modification with 409 Conflict error
@@ -200,7 +200,7 @@ The implementation follows a bottom-up approach: database schema → data access
     - Return Result<Course>
     - _Requirements: 1.3, 7.4, 9.6_
 
-  - [ ] 6.6 Implement deleteCourse Server Action
+  - [x] 6.6 Implement deleteCourse Server Action
     - Validate courseId is valid UUID
     - Validate tenantId ownership
     - Use executeTransaction to wrap delete operation
@@ -208,7 +208,7 @@ The implementation follows a bottom-up approach: database schema → data access
     - Return Result<void>
     - _Requirements: 1.4, 9.1-9.3_
 
-  - [ ]* 6.7 Write integration test for cascade deletion
+  - [x]* 6.7 Write integration test for cascade deletion
     - **Property 2: Cascade Deletion Completeness**
     - **Validates: Requirements 1.4**
     - Create course with 5 components
@@ -216,8 +216,8 @@ The implementation follows a bottom-up approach: database schema → data access
     - Query database for orphaned components
     - Assert zero orphaned records remain
 
-- [ ] 7. Build Server Actions for component management
-  - [ ] 7.1 Implement saveComponents Server Action
+- [x] 7. Build Server Actions for component management
+  - [x] 7.1 Implement saveComponents Server Action
     - Validate courseId and components array with ComponentsArraySchema
     - Verify weight sum equals 10000 (±10 tolerance) via Zod
     - Use executeTransaction for atomicity
@@ -226,7 +226,7 @@ The implementation follows a bottom-up approach: database schema → data access
     - Return Result<Component[]>
     - _Requirements: 2.1-2.7, 9.1-9.3, Guardrail 1.1_
 
-  - [ ]* 7.2 Write property test for weight sum enforcement
+  - [x]* 7.2 Write property test for weight sum enforcement
     - **Property 5: Component Weight Sum Invariant**
     - **Validates: Requirements 2.3, 2.5, 2.6, 14.4**
     - Generate component arrays with weights summing to 10000 (should succeed)
@@ -234,7 +234,7 @@ The implementation follows a bottom-up approach: database schema → data access
     - Generate arrays summing to 10005 (within tolerance, should succeed)
     - Assert transaction rollback on validation failure
 
-  - [ ] 7.3 Implement updateComponentScore Server Action
+  - [x] 7.3 Implement updateComponentScore Server Action
     - Validate componentId and achievedScore with ScoreUpdateSchema
     - Validate achievedScore is integer 0-10000 or null
     - Use Prisma update with version increment
@@ -242,7 +242,7 @@ The implementation follows a bottom-up approach: database schema → data access
     - Return Result<Component>
     - _Requirements: 3.1-3.5, Guardrail 1.1_
 
-  - [ ] 7.4 Implement deleteComponent Server Action
+  - [x] 7.4 Implement deleteComponent Server Action
     - Validate componentId is valid UUID
     - Validate tenantId ownership via courseId relation
     - Check remaining components still sum to 10000 after deletion
