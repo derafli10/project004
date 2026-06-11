@@ -67,6 +67,11 @@ vi.mock('@prisma/client', () => {
   
   return {
     PrismaClient: PrismaClientMock,
+    AlertLevel: {
+      NORMAL: 'NORMAL',
+      WARNING: 'WARNING',
+      DANGER: 'DANGER'
+    }
   };
 });
 
@@ -145,11 +150,12 @@ describe('Course Server Actions', () => {
   describe('getCourses', () => {
     it('should return courses for the current tenant', async () => {
       (prismaMock.course.findMany as any).mockResolvedValue([
-        { id: '1', name: 'Course 1' },
-        { id: '2', name: 'Course 2' }
+        { id: '1', name: 'Course 1', components: [], targetThreshold: 8000 },
+        { id: '2', name: 'Course 2', components: [], targetThreshold: 8000 }
       ]);
 
       const result = await getCourses();
+      console.log('Result:', result);
       expect(result.success).toBe(true);
       if (result.success) {
         expect(result.data).toHaveLength(2);

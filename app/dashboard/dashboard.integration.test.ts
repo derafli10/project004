@@ -4,19 +4,30 @@ import { PrismaClient } from "@prisma/client";
 
 // Mock server context to avoid next/headers issues
 vi.mock("@/lib/server-context", () => ({
-  getTenantIdFromRequest: vi.fn().mockResolvedValue("test-tenant-id"),
+  getTenantIdFromRequest: vi.fn().mockResolvedValue("dashboard-tenant-id"),
 }));
 
 const prisma = new PrismaClient();
 
 describe("Dashboard Data Fetching Integration", () => {
   beforeEach(async () => {
+    // Ensure user exists for foreign key constraint
+    await prisma.user.upsert({
+      where: { tenantId: "dashboard-tenant-id" },
+      update: {},
+      create: {
+        email: "dashboard-test@example.com",
+        name: "Test User",
+        tenantId: "dashboard-tenant-id",
+      }
+    });
+
     // Clean up test data
     await prisma.component.deleteMany({
-      where: { course: { tenantId: "test-tenant-id" } }
+      where: { course: { tenantId: "dashboard-tenant-id" } }
     });
     await prisma.course.deleteMany({
-      where: { tenantId: "test-tenant-id" }
+      where: { tenantId: "dashboard-tenant-id" }
     });
   });
 
@@ -28,7 +39,7 @@ describe("Dashboard Data Fetching Integration", () => {
         sks: 3,
         targetGrade: "A",
         targetThreshold: 8000, // 80%
-        tenantId: "test-tenant-id",
+        tenantId: "dashboard-tenant-id",
         components: {
           create: [
             { name: "Assignment 1", weight: 3000, achievedScore: 8500 }, // 30% weight, 85% score
@@ -70,7 +81,7 @@ describe("Dashboard Data Fetching Integration", () => {
         sks: 3,
         targetGrade: "A",
         targetThreshold: 8000, // 80%
-        tenantId: "test-tenant-id",
+        tenantId: "dashboard-tenant-id",
         components: {
           create: [
             { name: "Midterm", weight: 5000, achievedScore: 5000 }, // 50% weight, 50% score

@@ -351,8 +351,8 @@ The implementation follows a bottom-up approach: database schema → data access
     - _Requirements: 16.1-16.6_
 
 
-- [ ] 13. Build course detail page with component matrix
-  - [ ] 13.1 Create course detail page route (app/course/[courseId]/page.tsx)
+- [x] 13. Build course detail page with component matrix
+  - [x] 13.1 Create course detail page route (app/course/[courseId]/page.tsx)
     - Fetch course with components using getCourseById Server Action
     - Display course header with name, SKS, target grade, and analytics summary
     - Render ComponentMatrix client component for interactive score entry
@@ -360,7 +360,7 @@ The implementation follows a bottom-up approach: database schema → data access
     - Add "Edit Course" and "Delete Course" buttons with lucide-react icons (strokeWidth={3})
     - _Requirements: 19.1-19.3, 13.3-13.4_
 
-  - [ ] 13.2 Implement ComponentMatrix client component
+  - [x] 13.2 Implement ComponentMatrix client component
     - Display table with columns: Component Name, Weight (%), Achieved Score, Contribution
     - Make achieved score cells editable (inline input)
     - Debounce score updates (300ms) before calling updateComponentScore
@@ -368,7 +368,7 @@ The implementation follows a bottom-up approach: database schema → data access
     - Update alert level badge reactively when scores change
     - _Requirements: 3.3-3.5, 19.1-19.2_
 
-  - [ ] 13.3 Add real-time analytics calculation
+  - [x] 13.3 Add real-time analytics calculation
     - Recalculate analytics on every score update within 200ms
     - Update cumulative actual display
     - Update required score display (handle null, negative, >100)
@@ -376,7 +376,7 @@ The implementation follows a bottom-up approach: database schema → data access
     - Display "N/A" for edge cases (NaN, Infinity)
     - _Requirements: 4.4, 5.6, 6.6, 16.6, 19.1_
 
-  - [ ]* 13.4 Write integration test for real-time updates
+  - [x] 13.4 Write integration test for real-time updates
     - Create course with 3 components
     - Update achieved score via UI interaction
     - Assert cumulative actual recalculates within 200ms
