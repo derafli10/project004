@@ -1,7 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import fc from 'fast-check';
 import { saveComponents } from './component';
-import * as serverContext from '../server-context';
 
 // Mock server context
 vi.mock('../server-context', () => ({

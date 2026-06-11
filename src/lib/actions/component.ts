@@ -70,7 +70,7 @@ export async function saveComponents(
       return {
         success: false,
         error: "Validation error",
-        fieldErrors: error.flatten().fieldErrors,
+        fieldErrors: error.flatten().fieldErrors as Record<string, string[]>,
       };
     }
     return {
@@ -117,7 +117,8 @@ export async function updateComponentScore(
       // For now, we just perform the calculation as required by 7.3 "Trigger analytics recalculation"
       const allComponents = updatedComponent.course.components;
       const targetThreshold = updatedComponent.course.targetThreshold;
-      const analytics = calculateCourseAnalytics(allComponents, targetThreshold);
+      // Analytics recalculation as required by 7.3 - will be used in task 8 for notification triggers
+      void calculateCourseAnalytics(allComponents, targetThreshold);
 
       // Return just the component to match Result<Component>
       // The analytics can be used later to trigger notifications if alertLevel is DANGER
@@ -129,7 +130,7 @@ export async function updateComponentScore(
       return {
         success: false,
         error: "Validation error",
-        fieldErrors: error.flatten().fieldErrors,
+        fieldErrors: error.flatten().fieldErrors as Record<string, string[]>,
       };
     }
     return {
