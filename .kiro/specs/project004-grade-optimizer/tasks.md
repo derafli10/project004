@@ -76,8 +76,8 @@ The implementation follows a bottom-up approach: database schema → data access
     - _Requirements: 9.1-9.3, 9.5, Guardrail 4.4-4.5_
 
 
-- [ ] 3. Build analytics calculation engine
-  - [ ] 3.1 Implement cumulative actual score calculation
+- [x] 3. Build analytics calculation engine
+  - [x] 3.1 Implement cumulative actual score calculation
     - Create `calculateCumulativeActual(components: Array<{weight: number; achievedScore: number | null}>): number`
     - Use integer arithmetic: sum((achievedScore * weight) / 10000) for non-null scores
     - Convert result to decimal and round to 2 decimal places
@@ -93,7 +93,7 @@ The implementation follows a bottom-up approach: database schema → data access
     - Assert calculated result matches expected (with 0.01 tolerance for rounding)
     - Test edge cases: all scores null, single component, all components complete
 
-  - [ ] 3.3 Implement required score calculation
+  - [x] 3.3 Implement required score calculation
     - Create `calculateRequiredScore(components: Array<{weight: number; achievedScore: number | null}>, targetThreshold: number): number | null`
     - Calculate remainingWeight as sum of weights with null achievedScore
     - Return null if remainingWeight equals 0
@@ -109,7 +109,7 @@ The implementation follows a bottom-up approach: database schema → data access
     - Assert formula correctness with 0.01 tolerance
     - Test edge cases: remainingWeight = 0 (should return null), negative required scores
 
-  - [ ] 3.5 Implement alert level classification
+  - [x] 3.5 Implement alert level classification
     - Create `calculateAlertLevel(requiredScore: number | null): AlertLevel`
     - Return DANGER when requiredScore > 100.00
     - Return WARNING when 90.00 <= requiredScore <= 100.00
@@ -123,7 +123,7 @@ The implementation follows a bottom-up approach: database schema → data access
     - Test null and negative inputs (should return NORMAL)
     - Assert exhaustive enum coverage
 
-  - [ ] 3.7 Create unified analytics calculation function
+  - [x] 3.7 Create unified analytics calculation function
     - Implement `calculateCourseAnalytics(components, targetThreshold): CourseAnalytics`
     - Single-pass optimization: calculate all metrics in one iteration
     - Return object with cumulativeActual, requiredScore, remainingWeight, alertLevel, isTargetAchievable
@@ -131,11 +131,11 @@ The implementation follows a bottom-up approach: database schema → data access
     - _Requirements: 4.4, 5.6, 19.1_
 
 
-- [ ] 4. Checkpoint - Ensure all tests pass
+- [x] 4. Checkpoint - Ensure all tests pass
   - Ensure all tests pass, ask the user if questions arise.
 
-- [ ] 5. Implement session management and multi-tenant middleware
-  - [ ] 5.1 Create session authentication middleware
+- [x] 5. Implement session management and multi-tenant middleware
+  - [x] 5.1 Create session authentication middleware
     - Implement Next.js middleware to validate user session
     - Extract tenantId from authenticated session
     - Attach tenantId to request context for Server Actions
@@ -143,14 +143,14 @@ The implementation follows a bottom-up approach: database schema → data access
     - Add security headers (CSRF protection, XSS prevention)
     - _Requirements: 8.1-8.2, 8.5-8.7, Guardrail 2.4_
 
-  - [ ] 5.2 Create tenant isolation helper functions
+  - [x] 5.2 Create tenant isolation helper functions
     - Implement `getTenantId(session): string` to extract tenantId from session
     - Implement `validateTenantOwnership(resourceTenantId: string, sessionTenantId: string): boolean`
     - Return 403 Forbidden if tenantId mismatch detected
     - Add audit logging for all tenantId validation failures
     - _Requirements: 7.1-7.4, 8.3-8.4, Guardrail 2.1-2.6_
 
-  - [ ]* 5.3 Write integration test for multi-tenant isolation
+  - [x]* 5.3 Write integration test for multi-tenant isolation
     - **Property 9: Multi-Tenant Data Isolation**
     - **Validates: Requirements 7.1-7.4, 8.4, Guardrail 2**
     - Create two test tenants with separate courses
