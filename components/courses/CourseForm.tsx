@@ -4,6 +4,7 @@ import React, { useTransition, useState, useOptimistic } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
+import { type Route } from "next";
 import { CourseSchema, CourseInput } from "@/lib/validations";
 import { createCourse } from "@/lib/actions/course";
 import { Button } from "@/components/ui/Button";
@@ -20,7 +21,7 @@ export function CourseForm() {
   // Optimistic UI updates
   const [optimisticCourse, addOptimisticCourse] = useOptimistic<CourseInput | null, CourseInput>(
     null,
-    (state, newCourse) => newCourse
+    (_state, newCourse) => newCourse
   );
 
   const {
@@ -59,7 +60,7 @@ export function CourseForm() {
 
         if (result.success) {
           showToast("success", "Course created successfully!");
-          router.push("/dashboard");
+          router.push("/dashboard" as Route);
           router.refresh();
         } else {
           showToast("error", result.error || "Failed to create course");

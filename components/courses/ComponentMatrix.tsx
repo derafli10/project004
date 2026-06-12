@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useCallback, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Component } from "@prisma/client";
 import { updateComponentScore } from "@/lib/actions/component";
 import { calculateCourseAnalytics, CourseAnalytics } from "@/lib/analytics";
@@ -16,7 +16,7 @@ interface ComponentMatrixProps {
 }
 
 export function ComponentMatrix({
-  courseId,
+  courseId: _courseId,
   targetThreshold,
   initialComponents,
   initialAnalytics,

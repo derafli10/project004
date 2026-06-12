@@ -383,11 +383,11 @@ The implementation follows a bottom-up approach: database schema → data access
     - Assert required score updates correctly
     - Assert alert level badge changes when thresholds crossed
 
-- [ ] 14. Checkpoint - Ensure all tests pass
+- [x] 14. Checkpoint - Ensure all tests pass
   - Ensure all tests pass, ask the user if questions arise.
 
-- [ ] 15. Build component management UI
-  - [ ] 15.1 Create ComponentEditor client component
+- [x] 15. Build component management UI
+  - [x] 15.1 Create ComponentEditor client component
     - Display form for adding/editing components
     - Fields: name (text), weight (number input for decimal, converted to integer)
     - Validate weight sum equals 100.00% in real-time
@@ -395,14 +395,14 @@ The implementation follows a bottom-up approach: database schema → data access
     - Call saveComponents Server Action on submit
     - _Requirements: 2.1-2.7, 14.4_
 
-  - [ ] 15.2 Implement weight rebalancing helper
+  - [x] 15.2 Implement weight rebalancing helper
     - Add "Auto-balance weights" button to distribute weights evenly
     - Calculate equal weights as 10000 / componentCount
     - Handle rounding to ensure sum equals exactly 10000
     - Update all component weight inputs
     - _Requirements: 2.4-2.6_
 
-  - [ ]* 15.3 Write integration test for weight validation
+  - [x]* 15.3 Write integration test for weight validation
     - **Property 5: Component Weight Sum Invariant**
     - **Validates: Requirements 2.3, 2.5, 2.6, 14.4**
     - Submit components with weights summing to 99.50% (should fail)

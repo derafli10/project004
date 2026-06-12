@@ -5,7 +5,7 @@ import { getCourseById } from "@/lib/actions/course";
 import { PageContainer } from "@/components/layout/PageContainer";
 import { ComponentMatrix } from "@/components/courses/ComponentMatrix";
 import { Button } from "@/components/ui/Button";
-import { ArrowLeft, Edit, Trash2 } from "lucide-react";
+import { ArrowLeft, Edit, Trash2, Settings } from "lucide-react";
 import type { Route } from "next";
 
 export const metadata = {
@@ -55,7 +55,13 @@ export default async function CourseDetailPage({ params }: CoursePageProps) {
           </div>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center gap-3">
+          <Link href={`/courses/${course.id}/components` as Route}>
+            <Button variant="secondary" className="flex items-center gap-2">
+              <Settings size={16} strokeWidth={3} />
+              <span>Manage Components</span>
+            </Button>
+          </Link>
           <Button variant="secondary" className="flex items-center gap-2">
             <Edit size={16} strokeWidth={3} />
             <span>Edit Course</span>
