@@ -1,5 +1,6 @@
 import React from 'react';
 import { Home, BookOpen, BarChart2, Settings } from 'lucide-react';
+import { NotificationBell } from '@/components/notifications/NotificationBell';
 
 const navItems = [
   { name: 'Dashboard', icon: Home, href: '/dashboard' },
@@ -11,10 +12,11 @@ const navItems = [
 export function DesktopSidebar() {
   return (
     <aside className="hidden md:flex w-64 flex-col fixed inset-y-0 left-0 border-r-brutal border-brutal-border bg-brutal-black z-40">
-      <div className="p-6 border-b-brutal border-brutal-border">
+      <div className="p-6 border-b-brutal border-brutal-border flex items-center justify-between">
         <h2 className="text-xl font-heading font-bold text-brutal-text tracking-tight uppercase">
           Optimizer
         </h2>
+        <NotificationBell />
       </div>
       <nav className="flex-1 px-4 py-6 space-y-2">
         {navItems.map((item) => {
