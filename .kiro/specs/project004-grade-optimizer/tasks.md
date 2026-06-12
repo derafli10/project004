@@ -433,8 +433,8 @@ The implementation follows a bottom-up approach: database schema → data access
     - Include course name and required score in message
     - _Requirements: 6.5, 20.1_
 
-- [ ] 17. Implement data export functionality
-  - [ ] 17.1 Create exportData Server Action
+- [x] 17. Implement data export functionality
+  - [x] 17.1 Create exportData Server Action
     - Extract tenantId from session
     - Query all courses with components for tenant
     - Calculate analytics for each course
@@ -442,7 +442,7 @@ The implementation follows a bottom-up approach: database schema → data access
     - Return Result<string> with JSON content
     - _Requirements: 17.1-17.4_
 
-  - [ ]* 17.2 Write property test for export data completeness
+  - [x]* 17.2 Write property test for export data completeness
     - **Property 13: Export Data Completeness**
     - **Validates: Requirements 17.1, 17.2, 17.3, 17.4**
     - Create tenant with multiple courses and components
@@ -450,7 +450,7 @@ The implementation follows a bottom-up approach: database schema → data access
     - Assert JSON contains all courses, components, calculated fields
     - Assert only tenant's data included (no cross-tenant leakage)
 
-  - [ ] 17.3 Create ExportButton client component
+  - [x] 17.3 Create ExportButton client component
     - Add "Export Data" button to dashboard
     - Call exportData Server Action on click
     - Trigger browser download with generated JSON file
