@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { Plus, BookOpen } from "lucide-react";
 import { ExportButton } from "@/components/courses/ExportButton";
+import { ImportButton } from "@/components/courses/ImportButton";
 
 export const metadata = {
   title: "Dashboard - Grade Optimizer",
@@ -25,6 +26,7 @@ export default async function DashboardPage() {
           <p className="text-brutal-text-secondary mt-1">Overview of your academic performance</p>
         </div>
         <div className="flex flex-col sm:flex-row gap-3">
+          <ImportButton />
           <ExportButton />
           <Link href={"/courses/new" as Route}>
             <Button className="flex items-center gap-2 w-full sm:w-auto justify-center">

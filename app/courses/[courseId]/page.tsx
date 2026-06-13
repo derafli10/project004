@@ -5,7 +5,8 @@ import { getCourseById } from "@/lib/actions/course";
 import { PageContainer } from "@/components/layout/PageContainer";
 import { ComponentMatrix } from "@/components/courses/ComponentMatrix";
 import { Button } from "@/components/ui/Button";
-import { ArrowLeft, Edit, Trash2, Settings } from "lucide-react";
+import { ArrowLeft, Edit, Settings } from "lucide-react";
+import { DeleteCourseButton } from "@/components/courses/DeleteCourseButton";
 import type { Route } from "next";
 
 export const metadata = {
@@ -19,7 +20,7 @@ interface CoursePageProps {
 export default async function CourseDetailPage({ params }: CoursePageProps) {
   const resolvedParams = await params;
   const { courseId } = resolvedParams;
-  
+
   const result = await getCourseById(courseId);
 
   if (!result.success || !result.data) {
@@ -31,8 +32,8 @@ export default async function CourseDetailPage({ params }: CoursePageProps) {
   return (
     <PageContainer>
       <div className="mb-6">
-        <Link 
-          href={"/dashboard" as Route} 
+        <Link
+          href={"/dashboard" as Route}
           className="inline-flex items-center gap-2 text-brutal-text-secondary hover:text-brutal-orange font-bold uppercase text-sm tracking-wide transition-colors min-h-[44px]"
         >
           <ArrowLeft size={16} strokeWidth={2.5} />
@@ -62,15 +63,13 @@ export default async function CourseDetailPage({ params }: CoursePageProps) {
               <span>Manage Components</span>
             </Button>
           </Link>
-          <Button variant="secondary" className="flex items-center gap-2">
-            <Edit size={16} strokeWidth={3} />
-            <span>Edit Course</span>
-          </Button>
-          {/* Note: Delete Course button will need a client component wrapper or a form later if we want it functional. For now we just display it as required. */}
-          <Button variant="secondary" className="flex items-center gap-2 text-brutal-orange border-brutal-orange hover:bg-brutal-orange hover:text-brutal-black">
-            <Trash2 size={16} strokeWidth={3} />
-            <span>Delete Course</span>
-          </Button>
+          <Link href={`/courses/${course.id}/edit` as Route}>
+            <Button variant="secondary" className="flex items-center gap-2">
+              <Edit size={16} strokeWidth={3} />
+              <span>Edit Course</span>
+            </Button>
+          </Link>
+          <DeleteCourseButton courseId={course.id} />
         </div>
       </div>
 
@@ -78,7 +77,7 @@ export default async function CourseDetailPage({ params }: CoursePageProps) {
         <h2 className="text-2xl font-heading font-bold uppercase mb-4 border-b-brutal border-brutal-border pb-2">
           Component Matrix
         </h2>
-        <ComponentMatrix 
+        <ComponentMatrix
           courseId={course.id}
           targetThreshold={course.targetThreshold}
           initialComponents={course.components}

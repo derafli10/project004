@@ -459,8 +459,8 @@ The implementation follows a bottom-up approach: database schema → data access
     - _Requirements: 17.5-17.6_
 
 
-- [ ] 18. Implement data import functionality
-  - [ ] 18.1 Create Parser utility for JSON import
+- [x] 18. Implement data import functionality
+  - [x] 18.1 Create Parser utility for JSON import
     - Implement `parseImportData(jsonString: string): Result<ImportData>`
     - Validate JSON structure with Zod schema
     - Validate component weights sum to 10000 per course
@@ -468,7 +468,7 @@ The implementation follows a bottom-up approach: database schema → data access
     - Return descriptive errors with line/column information
     - _Requirements: 18.1-18.2, 18.5-18.6_
 
-  - [ ] 18.2 Create importData Server Action
+  - [x] 18.2 Create importData Server Action
     - Parse JSON using Parser utility
     - Extract tenantId from session and assign to all imported courses
     - Use executeTransaction for atomic import
@@ -476,7 +476,7 @@ The implementation follows a bottom-up approach: database schema → data access
     - Return Result<Course[]> with imported courses
     - _Requirements: 18.7, 9.1-9.3_
 
-  - [ ]* 18.3 Write property test for import-export round-trip
+  - [x]* 18.3 Write property test for import-export round-trip
     - **Property 14: Import-Export Round-Trip Preservation**
     - **Validates: Requirements 18.1, 18.3, 18.4**
     - Use fast-check to generate random course and component data
@@ -484,7 +484,7 @@ The implementation follows a bottom-up approach: database schema → data access
     - Import JSON back into system
     - Assert all fields preserved exactly (names, weights, scores, SKS, target grades)
 
-  - [ ] 18.4 Create ImportButton client component
+  - [x] 18.4 Create ImportButton client component
     - Add "Import Data" button to dashboard
     - Show file picker for JSON file selection
     - Read file content and call importData Server Action
@@ -492,19 +492,19 @@ The implementation follows a bottom-up approach: database schema → data access
     - Show success toast with imported course count
     - _Requirements: 18.1-18.2_
 
-  - [ ]* 18.5 Write property test for parser error reporting
+  - [x]* 18.5 Write property test for parser error reporting
     - **Property 15: Parser Error Reporting**
     - **Validates: Requirements 18.2, 18.6**
     - Generate invalid JSON (malformed syntax, missing fields, invalid ranges)
     - Assert Parser returns descriptive error messages
     - Verify line/column information included for malformed JSON
 
-- [ ] 19. Checkpoint - Ensure all tests pass
+- [x] 19. Checkpoint - Ensure all tests pass
   - Ensure all tests pass, ask the user if questions arise.
 
 
-- [ ] 20. Implement course update and delete functionality
-  - [ ] 20.1 Create CourseEditForm client component
+- [x] 20. Implement course update and delete functionality
+  - [x] 20.1 Create CourseEditForm client component
     - Reuse CourseForm component with pre-populated values
     - Call updateCourse Server Action on submit
     - Handle optimistic locking conflicts with 409 Conflict error
@@ -512,7 +512,7 @@ The implementation follows a bottom-up approach: database schema → data access
     - Use optimistic updates with reconciliation
     - _Requirements: 1.3, 9.6, 10.1-10.6_
 
-  - [ ] 20.2 Create DeleteCourseButton client component
+  - [x] 20.2 Create DeleteCourseButton client component
     - Add "Delete Course" button with confirmation dialog
     - Use brutalist modal with #09090B background and #FF4500 accent
     - Call deleteCourse Server Action on confirm
@@ -520,7 +520,7 @@ The implementation follows a bottom-up approach: database schema → data access
     - Display error toast on failure
     - _Requirements: 1.4_
 
-  - [ ]* 20.3 Write integration test for optimistic locking
+  - [x]* 20.3 Write integration test for optimistic locking
     - Simulate concurrent course updates from two sessions
     - Assert first update succeeds
     - Assert second update returns 409 Conflict
