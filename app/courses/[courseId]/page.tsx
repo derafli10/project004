@@ -7,6 +7,7 @@ import { ComponentMatrix } from "@/components/courses/ComponentMatrix";
 import { Button } from "@/components/ui/Button";
 import { ArrowLeft, Edit, Settings } from "lucide-react";
 import { DeleteCourseButton } from "@/components/courses/DeleteCourseButton";
+import { RelativeTime } from "@/components/ui/RelativeTime";
 import type { Route } from "next";
 
 export const metadata = {
@@ -36,7 +37,7 @@ export default async function CourseDetailPage({ params }: CoursePageProps) {
           href={"/dashboard" as Route}
           className="inline-flex items-center gap-2 text-brutal-text-secondary hover:text-brutal-orange font-bold uppercase text-sm tracking-wide transition-colors min-h-[44px]"
         >
-          <ArrowLeft size={16} strokeWidth={2.5} />
+          <ArrowLeft size={16} strokeWidth={2.5} aria-hidden="true" />
           Back to Dashboard
         </Link>
       </div>
@@ -54,18 +55,28 @@ export default async function CourseDetailPage({ params }: CoursePageProps) {
               Target Grade: <span className="text-brutal-text font-numeric">{course.targetGrade}</span>
             </span>
           </div>
+          
+          <div className="text-brutal-text-muted mt-4 text-xs md:text-sm flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4 uppercase font-bold tracking-wide">
+            <div>
+              Created: <RelativeTime timestamp={course.createdAt} className="text-brutal-text" />
+            </div>
+            <div className="hidden sm:block text-brutal-border/30">•</div>
+            <div>
+              Last updated: <RelativeTime timestamp={course.updatedAt} className="text-brutal-text" />
+            </div>
+          </div>
         </div>
 
         <div className="flex flex-wrap items-center gap-3">
           <Link href={`/courses/${course.id}/components` as Route}>
             <Button variant="secondary" className="flex items-center gap-2">
-              <Settings size={16} strokeWidth={3} />
+              <Settings size={16} strokeWidth={3} aria-hidden="true" />
               <span>Manage Components</span>
             </Button>
           </Link>
           <Link href={`/courses/${course.id}/edit` as Route}>
             <Button variant="secondary" className="flex items-center gap-2">
-              <Edit size={16} strokeWidth={3} />
+              <Edit size={16} strokeWidth={3} aria-hidden="true" />
               <span>Edit Course</span>
             </Button>
           </Link>

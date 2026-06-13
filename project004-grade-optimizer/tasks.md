@@ -526,35 +526,35 @@ The implementation follows a bottom-up approach: database schema → data access
     - Assert second update returns 409 Conflict
     - Verify database contains only first update
 
-- [ ] 21. Add audit trail and timestamp displays
-  - [ ] 21.1 Display createdAt and updatedAt timestamps
+- [x] 21. Add audit trail and timestamp displays
+  - [x] 21.1 Display createdAt and updatedAt timestamps
     - Format timestamps as ISO 8601 strings
     - Convert to user's local timezone for display
     - Add "Last updated" label to course detail page
     - Use Space Mono font for timestamp displays
     - _Requirements: 15.1-15.6_
 
-  - [ ] 21.2 Create RelativeTime component
+  - [x] 21.2 Create RelativeTime component
     - Display relative time strings ("2 hours ago", "Last week")
     - Use browser Intl.RelativeTimeFormat API
     - Add full timestamp in title attribute on hover
     - _Requirements: 15.4_
 
-- [ ] 22. Implement error boundaries and fallback UI
-  - [ ] 22.1 Create global Error Boundary component
+- [x] 22. Implement error boundaries and fallback UI
+  - [x] 22.1 Create global Error Boundary component
     - Wrap app root with React Error Boundary
     - Display brutalist error page with #FF4500 accent
     - Log errors with stack traces to console/monitoring
     - Provide "Try Again" button to reset boundary
     - _Requirements: Guardrail 4.8_
 
-  - [ ] 22.2 Create loading states for Server Components
+  - [x] 22.2 Create loading states for Server Components
     - Add loading.tsx files for dashboard and course detail routes
     - Display brutalist skeleton loaders with #09090B background
     - Use lucide-react Loader icon (strokeWidth={2.5}) with spin animation
     - _Requirements: 19.4_
 
-  - [ ] 22.3 Add 404 Not Found page
+  - [x] 22.3 Add 404 Not Found page
     - Create not-found.tsx with brutalist styling
     - Display "Course Not Found" message
     - Add "Back to Dashboard" button with lucide-react ArrowLeft icon

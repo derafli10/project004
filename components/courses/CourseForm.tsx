@@ -82,8 +82,8 @@ export function CourseForm() {
           toast.type === "error" 
             ? "bg-brutal-orange/10 border-brutal-orange text-brutal-orange" 
             : "bg-brutal-success/10 border-brutal-success text-brutal-success"
-        }`}>
-          {toast.type === "error" ? <AlertCircle size={20} /> : <CheckCircle2 size={20} />}
+        }`} role="alert">
+          {toast.type === "error" ? <AlertCircle size={20} aria-hidden="true" /> : <CheckCircle2 size={20} aria-hidden="true" />}
           <p className="font-bold">{toast.message}</p>
         </div>
       )}
@@ -101,8 +101,8 @@ export function CourseForm() {
             className={errors.name ? "border-brutal-orange focus:ring-brutal-orange" : ""}
           />
           {errors.name && (
-            <p className="mt-2 text-sm text-brutal-orange font-bold flex items-center gap-1">
-              <AlertCircle size={14} />
+            <p className="mt-2 text-sm text-brutal-orange font-bold flex items-center gap-1" role="alert">
+              <AlertCircle size={14} aria-hidden="true" />
               {errors.name.message}
             </p>
           )}
@@ -127,8 +127,8 @@ export function CourseForm() {
             ))}
           </select>
           {errors.sks && (
-            <p className="mt-2 text-sm text-brutal-orange font-bold flex items-center gap-1">
-              <AlertCircle size={14} />
+            <p className="mt-2 text-sm text-brutal-orange font-bold flex items-center gap-1" role="alert">
+              <AlertCircle size={14} aria-hidden="true" />
               {errors.sks.message}
             </p>
           )}
@@ -155,8 +155,8 @@ export function CourseForm() {
             <option value="E">E (0.00% - 54.99%)</option>
           </select>
           {errors.targetGrade && (
-            <p className="mt-2 text-sm text-brutal-orange font-bold flex items-center gap-1">
-              <AlertCircle size={14} />
+            <p className="mt-2 text-sm text-brutal-orange font-bold flex items-center gap-1" role="alert">
+              <AlertCircle size={14} aria-hidden="true" />
               {errors.targetGrade.message}
             </p>
           )}
