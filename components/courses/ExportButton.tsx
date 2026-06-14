@@ -49,9 +49,9 @@ export function ExportButton() {
       className="flex items-center gap-2 bg-brutal-black"
     >
       {isExporting ? (
-        <Loader2 size={20} strokeWidth={2.5} className="animate-spin text-brutal-text-muted" />
+        <Loader2 size={20} strokeWidth={2.5} className="animate-spin text-brutal-text-muted"  aria-hidden="true" />
       ) : (
-        <Download size={20} strokeWidth={2.5} />
+        <Download size={20} strokeWidth={2.5}  aria-hidden="true" />
       )}
       <span>{isExporting ? "Exporting..." : "Export Data"}</span>
     </Button>

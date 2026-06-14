@@ -20,7 +20,7 @@ export default function DashboardLoading(): React.JSX.Element {
 
         {/* Loading Spinner Area */}
         <div className="flex flex-col items-center justify-center py-12 flex-grow">
-          <Loader size={48} strokeWidth={2.5} className="text-brutal-orange animate-spin mb-4" />
+          <Loader size={48} strokeWidth={2.5} className="text-brutal-orange animate-spin mb-4"  aria-hidden="true" />
           <h2 className="text-xl font-heading font-bold uppercase text-brutal-text-secondary tracking-widest animate-pulse">
             Loading Dashboard Data...
           </h2>

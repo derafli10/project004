@@ -59,9 +59,9 @@ export function ImportButton() {
         className="flex items-center gap-2 bg-brutal-black"
       >
         {isImporting ? (
-          <Loader2 size={20} strokeWidth={2.5} className="animate-spin text-brutal-text-muted" />
+          <Loader2 size={20} strokeWidth={2.5} className="animate-spin text-brutal-text-muted"  aria-hidden="true" />
         ) : (
-          <Upload size={20} strokeWidth={2.5} />
+          <Upload size={20} strokeWidth={2.5}  aria-hidden="true" />
         )}
         <span>{isImporting ? "Importing..." : "Import Data"}</span>
       </Button>

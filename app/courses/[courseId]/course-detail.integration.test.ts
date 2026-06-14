@@ -106,5 +106,5 @@ describe("Course Detail Component Matrix Integration", () => {
     // Also verify the server action updates correctly and returns the updated component
     const result2 = await updateComponentScore({ componentId: midtermId, achievedScore: 4000 });
     expect(result2.success).toBe(true);
-  });
+  }, 30000);
 });

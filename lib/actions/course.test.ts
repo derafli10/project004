@@ -40,6 +40,9 @@ vi.mock('../transactions', async () => {
             };
           }),
           delete: vi.fn().mockResolvedValue(true),
+        },
+        component: {
+          deleteMany: vi.fn().mockResolvedValue(true),
         }
       };
       

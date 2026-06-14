@@ -561,15 +561,15 @@ The implementation follows a bottom-up approach: database schema → data access
     - _Requirements: 6.4_
 
 
-- [ ] 23. Add accessibility features
-  - [ ] 23.1 Implement keyboard navigation
+- [x] 23. Add accessibility features
+  - [x] 23.1 Implement keyboard navigation
     - Ensure all interactive elements focusable with Tab key
     - Add visible focus indicators with #FF4500 ring
     - Support Enter key for button activation
     - Support Escape key to close modals
     - _Requirements: Guardrail 3_
 
-  - [ ] 23.2 Add ARIA labels and semantic HTML
+  - [x] 23.2 Add ARIA labels and semantic HTML
     - Use semantic HTML5 elements (nav, main, article, section)
     - Add aria-label to icon-only buttons
     - Add aria-hidden="true" to decorative lucide-react icons
@@ -577,7 +577,7 @@ The implementation follows a bottom-up approach: database schema → data access
     - Ensure minimum contrast ratio 4.5:1 for body text
     - _Requirements: 13.8-13.9, Guardrail 3_
 
-  - [ ] 23.3 Add screen reader support
+  - [x] 23.3 Add screen reader support
     - Add visually-hidden labels for form inputs
     - Announce optimistic updates to screen readers
     - Add role="status" for analytics displays

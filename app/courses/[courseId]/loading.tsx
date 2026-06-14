@@ -29,7 +29,7 @@ export default function CourseDetailLoading(): React.JSX.Element {
 
         {/* Loading Spinner Area */}
         <div className="flex flex-col items-center justify-center py-16 bg-brutal-black border-brutal border-brutal-border shadow-[4px_4px_0px_0px_rgba(226,232,240,1)]">
-          <Loader size={48} strokeWidth={2.5} className="text-brutal-orange animate-spin mb-6" />
+          <Loader size={48} strokeWidth={2.5} className="text-brutal-orange animate-spin mb-6"  aria-hidden="true" />
           <h2 className="text-xl font-heading font-bold uppercase text-brutal-text-secondary tracking-widest animate-pulse">
             Loading Course Data...
           </h2>

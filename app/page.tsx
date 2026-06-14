@@ -38,7 +38,7 @@ export default function HomePage(): React.JSX.Element {
           
           <button className="btn-brutal flex items-center justify-center gap-2 w-full touch-target">
             Get Started
-            <ArrowRight size={20} strokeWidth={2.5} />
+            <ArrowRight size={20} strokeWidth={2.5}  aria-hidden="true" />
           </button>
         </div>
         

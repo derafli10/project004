@@ -705,7 +705,7 @@ Also create:
 - [ ] Enums defined for TargetGrade and AlertLevel
 - [ ] `npx prisma generate` runs without errors
 - [ ] `npx prisma migrate dev` creates initial migration successfully
-- [ ] Prisma Client singleton instance created in src/lib/db.ts
+- [ ] Prisma Client singleton instance created in /lib/db.ts
 - [ ] Seed script populates test data with integer-based values
 
 ---
@@ -912,7 +912,7 @@ Each Server Action must:
 
 **AI Prompt Guidelines**:
 ```
-Create responsive course dashboard at src/app/dashboard/page.tsx:
+Create responsive course dashboard at /app/dashboard/page.tsx:
 1. Server Component that fetches courses using getCourses()
 2. Mobile Layout (< 768px):
    - Vertical card stack
@@ -956,7 +956,7 @@ Apply brutalist design: #09090B background, 2px borders, Space Grotesk headings,
 
 **AI Prompt Guidelines**:
 ```
-Build Component Management interface at src/app/courses/[id]/components/page.tsx:
+Build Component Management interface at /app/courses/[id]/components/page.tsx:
 1. Client Component with useOptimistic for instant feedback
 2. Component input matrix:
    - Table with columns: Name | Weight (%) | Achieved Score | Actions
@@ -1004,14 +1004,14 @@ Convert weight percentages to integers (*100) before saving.
 
 **AI Prompt Guidelines**:
 ```
-Create score entry system in src/app/courses/[id]/page.tsx:
+Create score entry system in /app/courses/[id]/page.tsx:
 1. Course detail page displaying:
    - Course header: name, SKS, target grade
    - Components table with score input fields
    - Cumulative Actual score (calculated)
    - Required Score for remaining components (calculated)
    - Alert Level indicator (Normal/Warning/Danger)
-2. src/lib/analytics.ts - Calculation engine:
+2. /lib/analytics.ts - Calculation engine:
    - calculateCumulativeActual(components): number
      * Sum of (achievedScore * weight) for non-null scores
      * Convert from integers: (score/100) * (weight/100)
@@ -1167,7 +1167,7 @@ Ensure calculations remain accurate during optimistic updates.
 
 **AI Prompt Guidelines**:
 ```
-Optimize calculation engine in src/lib/analytics.ts:
+Optimize calculation engine in /lib/analytics.ts:
 1. Performance profiling:
    - Add performance.now() measurements
    - Log calculation duration
@@ -1219,11 +1219,11 @@ Migrate appropriate components to React Server Components:
 1. Identify server vs client components:
    - Server: Dashboard list, course headers, static layouts
    - Client: Score inputs, modals, optimistic updates, forms
-2. src/app/dashboard/page.tsx - Server Component:
+2. /app/dashboard/page.tsx - Server Component:
    - Fetch courses on server
    - No useState, useEffect
    - Stream data with Suspense boundaries
-3. src/app/courses/[id]/page.tsx - Hybrid approach:
+3. /app/courses/[id]/page.tsx - Hybrid approach:
    - Server Component wrapper fetches initial data
    - Client Component for interactive score inputs
    - Pass data as props to client components
@@ -1291,7 +1291,7 @@ Build robust error handling system:
    - Log errors with context (tenantId, operation, timestamp)
    - Never expose internal errors to client
 5. Toast notification system:
-   - src/components/Toast.tsx - Toast component
+   - /components/Toast.tsx - Toast component
    - Color coded: Error (red), Warning (orange), Success (green), Info (blue)
    - Auto-dismiss after 5 seconds
    - Manual dismiss button
@@ -1325,7 +1325,7 @@ All errors must be caught, logged, and displayed gracefully.
 
 **AI Prompt Guidelines**:
 ```
-Create data export system in src/app/actions/export.ts:
+Create data export system in /app/actions/export.ts:
 1. exportAllData(): Promise<Result<ExportData>>
    - Fetch all courses for tenantId
    - Include all components with integer values
@@ -1507,7 +1507,7 @@ Notifications must be real-time and attention-grabbing.
 
 **AI Prompt Guidelines**:
 ```
-Build import system in src/app/actions/import.ts:
+Build import system in /app/actions/import.ts:
 1. ImportSchema - Zod schema for import validation:
    ```typescript
    const ImportSchema = z.object({

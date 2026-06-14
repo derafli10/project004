@@ -19,7 +19,7 @@ function RelativeTime({ date }: { date: Date | string }) {
     else setText(`${Math.floor(diffInSeconds / 86400)}d ago`);
   }, [date]);
 
-  return <span className="text-xs font-mono text-brutal-text-muted flex items-center gap-1"><Clock size={12} /> {text}</span>;
+  return <span className="text-xs font-mono text-brutal-text-muted flex items-center gap-1"><Clock size={12}  aria-hidden="true" /> {text}</span>;
 }
 
 export function NotificationPanel() {
@@ -72,7 +72,7 @@ export function NotificationPanel() {
             </button>
           )}
           <button onClick={closePanel} className="text-brutal-text-muted hover:text-brutal-orange transition-colors" aria-label="Close notifications">
-            <X size={18} strokeWidth={3} />
+            <X size={18} strokeWidth={3}  aria-hidden="true" />
           </button>
         </div>
       </div>
@@ -80,7 +80,7 @@ export function NotificationPanel() {
       <div className="overflow-y-auto flex-1">
         {notifications.length === 0 ? (
           <div className="p-8 text-center text-brutal-text-muted">
-            <CheckCircle2 size={32} strokeWidth={1.5} className="mx-auto mb-2 opacity-50" />
+            <CheckCircle2 size={32} strokeWidth={1.5} className="mx-auto mb-2 opacity-50"  aria-hidden="true" />
             <p className="font-body text-sm">You're all caught up!</p>
           </div>
         ) : (

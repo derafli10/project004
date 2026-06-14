@@ -174,7 +174,7 @@ export function ComponentEditor({ courseId, initialComponents }: ComponentEditor
           disabled={isPending}
           className="flex items-center gap-2"
         >
-          <RefreshCw size={16} strokeWidth={2.5} />
+          <RefreshCw size={16} strokeWidth={2.5}  aria-hidden="true" />
           <span>Auto-balance weights</span>
         </Button>
       </div>
@@ -186,8 +186,9 @@ export function ComponentEditor({ courseId, initialComponents }: ComponentEditor
               ? "bg-brutal-orange/10 border-brutal-orange text-brutal-orange"
               : "bg-brutal-success/10 border-brutal-success text-brutal-success"
           }`}
+          role={toast.type === "error" ? "alert" : "status"} aria-live="polite"
         >
-          {toast.type === "error" ? <AlertCircle size={20} /> : <CheckCircle2 size={20} />}
+          {toast.type === "error" ? <AlertCircle size={20}  aria-hidden="true" /> : <CheckCircle2 size={20}  aria-hidden="true" />}
           <p className="font-bold">{toast.message}</p>
         </div>
       )}
@@ -209,6 +210,7 @@ export function ComponentEditor({ courseId, initialComponents }: ComponentEditor
                   <td className="p-4">
                     <Input
                       placeholder="e.g., Midterm Exam"
+                      aria-label={`Component Name ${row.name || ''}`}
                       value={row.name}
                       onChange={(e) => handleFieldChange(row.id, "name", e.target.value)}
                       disabled={isPending}
@@ -223,6 +225,7 @@ export function ComponentEditor({ courseId, initialComponents }: ComponentEditor
                       max="100"
                       step="0.01"
                       placeholder="e.g., 30"
+                      aria-label={`Component Weight for ${row.name || 'new component'}`}
                       value={row.weight}
                       onChange={(e) => handleFieldChange(row.id, "weight", e.target.value)}
                       disabled={isPending}
@@ -237,6 +240,7 @@ export function ComponentEditor({ courseId, initialComponents }: ComponentEditor
                       max="100"
                       step="0.01"
                       placeholder="--"
+                      aria-label={`Achieved Score for ${row.name || 'new component'}`}
                       value={row.achievedScore}
                       onChange={(e) => handleFieldChange(row.id, "achievedScore", e.target.value)}
                       disabled={isPending}
@@ -247,11 +251,12 @@ export function ComponentEditor({ courseId, initialComponents }: ComponentEditor
                     <Button
                       type="button"
                       variant="secondary"
+                      aria-label={`Delete component ${row.name || ''}`}
                       onClick={() => handleRemoveRow(row.id)}
                       disabled={isPending}
                       className="text-brutal-orange border-brutal-orange hover:bg-brutal-orange hover:text-brutal-black p-2 min-w-[44px] min-h-[44px]"
                     >
-                      <Trash2 size={16} strokeWidth={2.5} />
+                      <Trash2 size={16} strokeWidth={2.5}  aria-hidden="true" />
                     </Button>
                   </td>
                 </tr>
@@ -261,7 +266,7 @@ export function ComponentEditor({ courseId, initialComponents }: ComponentEditor
         </div>
 
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-brutal-black p-6 border border-brutal-border">
-          <div>
+          <div aria-live="polite">
             <div className="text-xs text-brutal-text-muted uppercase font-heading tracking-wide mb-1">
               Total Weight Sum
             </div>
@@ -287,7 +292,7 @@ export function ComponentEditor({ courseId, initialComponents }: ComponentEditor
               disabled={isPending}
               className="flex items-center gap-2 flex-1 sm:flex-initial"
             >
-              <Plus size={16} strokeWidth={2.5} />
+              <Plus size={16} strokeWidth={2.5}  aria-hidden="true" />
               <span>Add Row</span>
             </Button>
 
@@ -296,7 +301,7 @@ export function ComponentEditor({ courseId, initialComponents }: ComponentEditor
               disabled={isPending || !isWeightSumValid}
               className="flex items-center gap-2 flex-1 sm:flex-initial"
             >
-              <Save size={16} strokeWidth={2.5} />
+              <Save size={16} strokeWidth={2.5}  aria-hidden="true" />
               <span>{isPending ? "Saving..." : "Save Components"}</span>
             </Button>
           </div>

@@ -114,8 +114,8 @@ export function ComponentMatrix({
           toast.type === "error" 
             ? "bg-brutal-orange/10 border-brutal-orange text-brutal-orange" 
             : "bg-brutal-success/10 border-brutal-success text-brutal-success"
-        }`}>
-          {toast.type === "error" ? <AlertCircle size={20} /> : <CheckCircle2 size={20} />}
+        }`} role={toast.type === "error" ? "alert" : "status"} aria-live="polite">
+          {toast.type === "error" ? <AlertCircle size={20}  aria-hidden="true" /> : <CheckCircle2 size={20}  aria-hidden="true" />}
           <p className="font-bold">{toast.message}</p>
         </div>
       )}
@@ -167,6 +167,7 @@ export function ComponentMatrix({
                           value={inputValue}
                           onChange={(e) => handleScoreChange(comp.id, e.target.value)}
                           placeholder="--"
+                          aria-label={`Achieved Score for ${comp.name}`}
                           className={`w-full border-brutal border-brutal-border bg-brutal-black px-3 py-1 text-center font-numeric font-bold focus:outline-none focus:ring-2 focus:ring-brutal-orange transition-all ${
                             isUpdating ? "opacity-50 border-dashed" : ""
                           }`}
@@ -183,7 +184,7 @@ export function ComponentMatrix({
       </div>
 
       {/* Footer / Summary Row */}
-      <div className="bg-brutal-black p-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="bg-brutal-black p-6 grid grid-cols-1 md:grid-cols-3 gap-6" role="status" aria-live="polite">
         <div>
           <div className="text-xs text-brutal-text-muted uppercase font-heading tracking-wide mb-1">Cumulative Actual</div>
           <div className="font-numeric font-bold text-3xl">{analytics.cumulativeActual.toFixed(2)}%</div>

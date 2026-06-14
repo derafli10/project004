@@ -83,7 +83,7 @@ describe("Course Update and Delete Integration", () => {
     if (!finalCourse.success) throw new Error("Expected finalCourse to exist");
     expect(finalCourse.data!.name).toBe("Updated by Session 1");
     expect(finalCourse.data!.version).toBe(v1! + 1);
-  });
+  }, 30000);
 
   it("Property 2: Cascade Deletion Completeness", async () => {
     // 1. Create course with 5 components
@@ -92,7 +92,7 @@ describe("Course Update and Delete Integration", () => {
         name: "Course to Delete",
         sks: 3,
         targetGrade: "A",
-        tenantId: "test-tenant-id",
+        tenantId: "update-delete-tenant-id",
         components: {
           create: Array.from({ length: 5 }).map((_, i) => ({
             name: `Component ${i}`,

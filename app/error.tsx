@@ -21,7 +21,7 @@ export default function GlobalError({
     <PageContainer>
       <div className="flex flex-col items-center justify-center min-h-[60vh] text-center max-w-2xl mx-auto">
         <div className="w-24 h-24 bg-brutal-orange/10 border-brutal border-brutal-orange flex items-center justify-center mb-8 shadow-[8px_8px_0px_0px_rgba(255,69,0,1)]">
-          <AlertOctagon size={48} className="text-brutal-orange" strokeWidth={2.5} />
+          <AlertOctagon size={48} className="text-brutal-orange" strokeWidth={2.5}  aria-hidden="true" />
         </div>
         
         <h1 className="text-4xl md:text-5xl font-heading font-bold uppercase text-brutal-orange mb-4 tracking-tight">
@@ -43,7 +43,7 @@ export default function GlobalError({
           onClick={() => reset()}
           className="flex items-center gap-2 px-8 py-4 text-lg bg-brutal-orange text-brutal-black hover:bg-brutal-orange/90 shadow-[4px_4px_0px_0px_rgba(250,250,250,1)] hover:shadow-[6px_6px_0px_0px_rgba(250,250,250,1)]"
         >
-          <RefreshCw size={20} strokeWidth={2.5} />
+          <RefreshCw size={20} strokeWidth={2.5}  aria-hidden="true" />
           <span>Try Again</span>
         </Button>
       </div>

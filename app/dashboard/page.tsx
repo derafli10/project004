@@ -30,7 +30,7 @@ export default async function DashboardPage() {
           <ExportButton />
           <Link href={"/courses/new" as Route}>
             <Button className="flex items-center gap-2 w-full sm:w-auto justify-center">
-              <Plus size={20} strokeWidth={2.5} />
+              <Plus size={20} strokeWidth={2.5}  aria-hidden="true" />
               <span>Create Course</span>
             </Button>
           </Link>
@@ -39,7 +39,7 @@ export default async function DashboardPage() {
 
       {courses.length === 0 ? (
         <Card className="flex flex-col items-center justify-center py-16 text-center border-dashed">
-          <BookOpen size={48} strokeWidth={1.5} className="text-brutal-text-muted mb-4" />
+          <BookOpen size={48} strokeWidth={1.5} className="text-brutal-text-muted mb-4"  aria-hidden="true" />
           <h3 className="text-xl font-heading font-bold mb-2">No courses found</h3>
           <p className="text-brutal-text-secondary max-w-md mb-6">
             You haven't added any courses yet. Create your first course to start optimizing your grades.

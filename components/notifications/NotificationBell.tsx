@@ -26,7 +26,7 @@ export function NotificationBell() {
         className="relative flex items-center justify-center min-w-[44px] min-h-[44px] text-brutal-text-secondary hover:text-brutal-text active:bg-brutal-border/10 transition-colors rounded-none outline-none focus:ring-2 focus:ring-brutal-orange focus:ring-offset-2 focus:ring-offset-brutal-black"
         aria-label="Toggle notifications"
       >
-        <Bell size={20} strokeWidth={2.5} className="text-brutal-orange" />
+        <Bell size={20} strokeWidth={2.5} className="text-brutal-orange"  aria-hidden="true" />
         {unreadCount > 0 && (
           <span className="absolute top-1 right-1 flex h-4 w-4 items-center justify-center border border-brutal-black bg-brutal-orange text-[10px] font-bold text-white font-numeric">
             {unreadCount > 99 ? '99+' : unreadCount}

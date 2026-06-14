@@ -43,7 +43,7 @@ export default async function EditCoursePage({ params }: EditCoursePageProps) {
           href={`/courses/${course.id}` as Route} 
           className="inline-flex items-center gap-2 text-brutal-text-secondary hover:text-brutal-orange font-bold uppercase text-sm tracking-wide transition-colors min-h-[44px]"
         >
-          <ArrowLeft size={16} strokeWidth={2.5} />
+          <ArrowLeft size={16} strokeWidth={2.5}  aria-hidden="true" />
           Back to Course
         </Link>
       </div>

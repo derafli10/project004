@@ -203,6 +203,11 @@ export async function deleteCourse(courseId: string): Promise<Result<void>> {
     }
 
     return await executeTransaction(async (tx) => {
+      // Manually cascade delete components first
+      await tx.component.deleteMany({
+        where: { courseId },
+      });
+      
       await tx.course.delete({
         where: { id: courseId },
       });

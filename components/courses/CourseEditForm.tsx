@@ -96,7 +96,7 @@ export function CourseEditForm({ course }: CourseEditFormProps) {
           toast.type === "error" 
             ? "bg-brutal-orange/10 border-brutal-orange text-brutal-orange" 
             : "bg-brutal-success/10 border-brutal-success text-brutal-success"
-        }`} role="alert">
+        }`} role={toast.type === "error" ? "alert" : "status"} aria-live="polite">
           {toast.type === "error" ? <AlertCircle size={20} aria-hidden="true" /> : <CheckCircle2 size={20} aria-hidden="true" />}
           <p className="font-bold">{toast.message}</p>
         </div>
@@ -188,7 +188,7 @@ export function CourseEditForm({ course }: CourseEditFormProps) {
       </form>
 
       {optimisticCourse && (
-        <div className="mt-8 border-t-brutal border-brutal-border pt-6 animate-pulse">
+        <div className="mt-8 border-t-brutal border-brutal-border pt-6 animate-pulse" aria-live="polite">
           <h3 className="text-sm font-heading font-bold text-brutal-text-secondary uppercase mb-4">
             Saving Changes...
           </h3>

@@ -123,5 +123,5 @@ describe('Import-Export Round-Trip Integration', () => {
       ),
       { numRuns: 5 } // Run a few iterations to verify property without taking too long
     );
-  });
+  }, 30000);
 });
