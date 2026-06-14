@@ -584,21 +584,21 @@ The implementation follows a bottom-up approach: database schema → data access
     - Test with NVDA or VoiceOver
     - _Requirements: 13.9_
 
-- [ ] 24. Performance optimization
-  - [ ] 24.1 Add database query optimization
+- [x] 24. Performance optimization
+  - [x] 24.1 Add database query optimization
     - Review Prisma queries for N+1 problems
     - Use select and include clauses to fetch only required fields
     - Add pagination for course listings (page size 50)
     - Verify composite indexes used in query plans
     - _Requirements: 11.3-11.6_
 
-  - [ ] 24.2 Implement React Server Component streaming
+  - [x] 24.2 Implement React Server Component streaming
     - Use Suspense boundaries for parallel data fetching
     - Stream course list and analytics calculations separately
     - Display skeleton loaders during streaming
     - _Requirements: 19.4-19.5_
 
-  - [ ]* 24.3 Write performance test for calculation engine
+  - [x]* 24.3 Write performance test for calculation engine
     - **Property 12: Calculation Performance Under Load**
     - **Validates: Requirements 4.4, 5.6**
     - Generate course with 20 components

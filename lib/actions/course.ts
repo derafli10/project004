@@ -63,24 +63,59 @@ export async function createCourse(data: CourseInput): Promise<Result<Course>> {
   }
 }
 
-export async function getCourses(): Promise<Result<CourseWithComponentsAndAnalytics[]>> {
+export async function getCourses(
+  page: number = 1,
+  pageSize: number = 50
+): Promise<Result<{ courses: CourseWithComponentsAndAnalytics[], totalCount: number, hasMore: boolean }>> {
   try {
     const tenantId = await getTenantIdFromRequest();
 
-    const courses = await prisma.course.findMany({
-      where: { tenantId },
-      orderBy: { createdAt: "desc" },
-      include: {
-        components: true,
-      },
-    });
+    const [courses, totalCount] = await Promise.all([
+      prisma.course.findMany({
+        where: { tenantId },
+        orderBy: { createdAt: "desc" },
+        skip: (page - 1) * pageSize,
+        take: pageSize,
+        select: {
+          id: true,
+          name: true,
+          sks: true,
+          targetGrade: true,
+          targetThreshold: true,
+          tenantId: true,
+          version: true,
+          createdAt: true,
+          updatedAt: true,
+          components: {
+            select: {
+              id: true,
+              name: true,
+              weight: true,
+              achievedScore: true,
+              courseId: true,
+              version: true,
+              createdAt: true,
+              updatedAt: true,
+            }
+          }
+        },
+      }),
+      prisma.course.count({ where: { tenantId } })
+    ]);
 
     const coursesWithAnalytics = courses.map(course => ({
       ...course,
       analytics: calculateCourseAnalytics(course.components, course.targetThreshold)
-    }));
+    })) as CourseWithComponentsAndAnalytics[];
 
-    return { success: true, data: coursesWithAnalytics };
+    return { 
+      success: true, 
+      data: { 
+        courses: coursesWithAnalytics, 
+        totalCount,
+        hasMore: page * pageSize < totalCount
+      } 
+    };
   } catch (error) {
     return {
       success: false,

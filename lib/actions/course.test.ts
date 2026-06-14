@@ -161,7 +161,7 @@ describe('Course Server Actions', () => {
       console.log('Result:', result);
       expect(result.success).toBe(true);
       if (result.success) {
-        expect(result.data).toHaveLength(2);
+        expect(result.data.courses).toHaveLength(2);
       }
     });
   });

@@ -56,9 +56,9 @@ describe("Dashboard Data Fetching Integration", () => {
     expect(result.success).toBe(true);
     if (!result.success) throw new Error("Expected success");
     
-    expect(result.data).toHaveLength(1);
+    expect(result.data.courses).toHaveLength(1);
     
-    const fetchedCourse = result.data[0]!;
+    const fetchedCourse = result.data.courses[0]!;
     expect(fetchedCourse.id).toBe(course.id);
     
     // 3. Assert cumulative actual and required score
@@ -96,7 +96,7 @@ describe("Dashboard Data Fetching Integration", () => {
     expect(result.success).toBe(true);
     if (!result.success) throw new Error("Expected success");
     
-    const fetchedCourse = result.data[0]!;
+    const fetchedCourse = result.data.courses[0]!;
     
     // cumulative = 50 * 0.5 = 25.00
     expect(fetchedCourse.analytics.cumulativeActual).toBe(25.00);
