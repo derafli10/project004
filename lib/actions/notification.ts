@@ -6,7 +6,7 @@ import { getTenantIdFromRequest } from "../server-context";
 import { z } from "zod";
 
 const prisma = new PrismaClient();
-const UUIDSchema = z.string().uuid();
+const UUIDSchema = z.string().min(1);
 
 /**
  * Get all notifications for the authenticated user.

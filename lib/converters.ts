@@ -1,3 +1,5 @@
+import { TargetGrade } from "./validations";
+
 /**
  * Integer-Decimal Conversion Utilities
  * 
@@ -89,3 +91,16 @@ export function formatScore(integer: number): string {
   const decimal = toDecimal(integer);
   return decimal.toFixed(2);
 }
+
+export const mapTargetGradeToThreshold = (grade: TargetGrade): number => {
+  const map: Record<TargetGrade, number> = {
+    A: 8000,
+    AB: 7500,
+    B: 7000,
+    BC: 6500,
+    C: 6000,
+    D: 5500,
+    E: 0,
+  };
+  return map[grade];
+};

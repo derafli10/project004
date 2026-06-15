@@ -4,7 +4,7 @@ import { Course } from "@prisma/client";
 import { executeTransaction, Result } from "../transactions";
 import { getTenantIdFromRequest } from "../server-context";
 import { parseImportData } from "../import-parser";
-import { mapTargetGradeToThreshold } from "./course";
+import { mapTargetGradeToThreshold } from "../converters";
 
 export async function importData(jsonString: string): Promise<Result<Course[]>> {
   try {

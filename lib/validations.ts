@@ -179,7 +179,7 @@ export const ComponentsArraySchema = z
 export const ScoreUpdateSchema = z.object({
   componentId: z
     .string()
-    .uuid({ message: "Component ID must be a valid UUID" }),
+    .min(1, { message: "Component ID must be provided" }),
   achievedScore: z
     .number()
     .int({ message: "Achieved score must be an integer" })

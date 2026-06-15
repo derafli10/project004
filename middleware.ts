@@ -156,9 +156,11 @@ export const config = {
      * Match all request paths except:
      * 1. Static files in _next/static, _next/image, favicon.ico, etc.
      * 2. Public assets
-     * 3. Health check endpoint
+     * 4. Root path (/)
+     * 5. Login path (/login)
+     * 6. Auth API (/api/auth)
      */
-    '/((?!_next/static|_next/image|favicon.ico|public|api/health).*)',
+    '/((?!_next/static|_next/image|favicon.ico|public|api/health|api/auth|$|login).*)',
   ],
 };
 

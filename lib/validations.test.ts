@@ -434,17 +434,19 @@ describe("ScoreUpdateSchema", () => {
     expect(ScoreUpdateSchema.safeParse(maxScore).success).toBe(true);
   });
 
-  it("should reject invalid UUID format", () => {
+  it("should reject empty componentId", () => {
     const scoreUpdate = {
-      componentId: "not-a-valid-uuid",
-      achievedScore: 8750,
+      componentId: "",
+      achievedScore: 8500,
     };
     const result = ScoreUpdateSchema.safeParse(scoreUpdate);
     expect(result.success).toBe(false);
     if (!result.success) {
-      expect(result.error.issues[0]?.message).toContain("valid UUID");
+      expect(result.error.issues[0]?.message).toContain("provided");
     }
   });
+
+
 
   it("should reject achievedScore less than 0", () => {
     const scoreUpdate = {

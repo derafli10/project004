@@ -13,7 +13,7 @@ import { z } from "zod";
 import { calculateCourseAnalytics } from "../analytics";
 
 const prisma = new PrismaClient();
-const UUIDSchema = z.string().uuid();
+const UUIDSchema = z.string().min(1);
 
 export async function saveComponents(
   courseId: string, 

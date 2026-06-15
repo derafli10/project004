@@ -10,23 +10,13 @@ import { executeTransaction, Result } from "../transactions";
 import { getTenantIdFromRequest } from "../server-context";
 import { calculateCourseAnalytics, CourseAnalytics } from "../analytics";
 import { z } from "zod";
+import { mapTargetGradeToThreshold } from "../converters";
 
 const prisma = new PrismaClient();
 
-const UUIDSchema = z.string().uuid();
+const UUIDSchema = z.string().min(1);
 
-export const mapTargetGradeToThreshold = (grade: TargetGrade): number => {
-  const map: Record<TargetGrade, number> = {
-    A: 8000,
-    AB: 7500,
-    B: 7000,
-    BC: 6500,
-    C: 6000,
-    D: 5500,
-    E: 0,
-  };
-  return map[grade];
-};
+
 
 export async function createCourse(data: CourseInput): Promise<Result<Course>> {
   try {
@@ -163,7 +153,7 @@ export async function getCourseById(courseId: string): Promise<Result<CourseWith
   }
 }
 
-export const UpdateCourseSchema = CourseSchema.partial().extend({
+const UpdateCourseSchema = CourseSchema.partial().extend({
   version: z.number().int().min(1),
 });
 
