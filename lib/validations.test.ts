@@ -68,7 +68,7 @@ describe("CourseSchema", () => {
     const result = CourseSchema.safeParse(course);
     expect(result.success).toBe(false);
     if (!result.success) {
-      expect(result.error.issues[0].message).toContain("at least 1 character");
+      expect(result.error.issues[0]?.message).toContain("at least 1 character");
     }
   });
 
@@ -81,7 +81,7 @@ describe("CourseSchema", () => {
     const result = CourseSchema.safeParse(course);
     expect(result.success).toBe(false);
     if (!result.success) {
-      expect(result.error.issues[0].message).toContain("not exceed 100 characters");
+      expect(result.error.issues[0]?.message).toContain("not exceed 100 characters");
     }
   });
 
@@ -106,7 +106,7 @@ describe("CourseSchema", () => {
     const result = CourseSchema.safeParse(course);
     expect(result.success).toBe(false);
     if (!result.success) {
-      expect(result.error.issues[0].message).toContain("at least 1");
+      expect(result.error.issues[0]?.message).toContain("at least 1");
     }
   });
 
@@ -119,7 +119,7 @@ describe("CourseSchema", () => {
     const result = CourseSchema.safeParse(course);
     expect(result.success).toBe(false);
     if (!result.success) {
-      expect(result.error.issues[0].message).toContain("not exceed 6");
+      expect(result.error.issues[0]?.message).toContain("not exceed 6");
     }
   });
 
@@ -132,7 +132,7 @@ describe("CourseSchema", () => {
     const result = CourseSchema.safeParse(course);
     expect(result.success).toBe(false);
     if (!result.success) {
-      expect(result.error.issues[0].message).toContain("integer");
+      expect(result.error.issues[0]?.message).toContain("integer");
     }
   });
 
@@ -221,7 +221,7 @@ describe("ComponentSchema", () => {
     const result = ComponentSchema.safeParse(component);
     expect(result.success).toBe(false);
     if (!result.success) {
-      expect(result.error.issues[0].message).toContain("at least 1");
+      expect(result.error.issues[0]?.message).toContain("at least 1");
     }
   });
 
@@ -234,7 +234,7 @@ describe("ComponentSchema", () => {
     const result = ComponentSchema.safeParse(component);
     expect(result.success).toBe(false);
     if (!result.success) {
-      expect(result.error.issues[0].message).toContain("not exceed 10000");
+      expect(result.error.issues[0]?.message).toContain("not exceed 10000");
     }
   });
 
@@ -247,7 +247,7 @@ describe("ComponentSchema", () => {
     const result = ComponentSchema.safeParse(component);
     expect(result.success).toBe(false);
     if (!result.success) {
-      expect(result.error.issues[0].message).toContain("integer");
+      expect(result.error.issues[0]?.message).toContain("integer");
     }
   });
 
@@ -268,7 +268,7 @@ describe("ComponentSchema", () => {
     const result = ComponentSchema.safeParse(component);
     expect(result.success).toBe(false);
     if (!result.success) {
-      expect(result.error.issues[0].message).toContain("at least 0");
+      expect(result.error.issues[0]?.message).toContain("at least 0");
     }
   });
 
@@ -281,7 +281,7 @@ describe("ComponentSchema", () => {
     const result = ComponentSchema.safeParse(component);
     expect(result.success).toBe(false);
     if (!result.success) {
-      expect(result.error.issues[0].message).toContain("not exceed 10000");
+      expect(result.error.issues[0]?.message).toContain("not exceed 10000");
     }
   });
 
@@ -294,7 +294,7 @@ describe("ComponentSchema", () => {
     const result = ComponentSchema.safeParse(component);
     expect(result.success).toBe(false);
     if (!result.success) {
-      expect(result.error.issues[0].message).toContain("integer");
+      expect(result.error.issues[0]?.message).toContain("integer");
     }
   });
 });
@@ -339,7 +339,7 @@ describe("ComponentsArraySchema", () => {
     const result = ComponentsArraySchema.safeParse(components);
     expect(result.success).toBe(false);
     if (!result.success) {
-      expect(result.error.issues[0].message).toContain("sum to 100.00%");
+      expect(result.error.issues[0]?.message).toContain("sum to 100.00%");
     }
   });
 
@@ -352,7 +352,7 @@ describe("ComponentsArraySchema", () => {
     const result = ComponentsArraySchema.safeParse(components);
     expect(result.success).toBe(false);
     if (!result.success) {
-      expect(result.error.issues[0].message).toContain("sum to 100.00%");
+      expect(result.error.issues[0]?.message).toContain("sum to 100.00%");
     }
   });
 
@@ -442,7 +442,7 @@ describe("ScoreUpdateSchema", () => {
     const result = ScoreUpdateSchema.safeParse(scoreUpdate);
     expect(result.success).toBe(false);
     if (!result.success) {
-      expect(result.error.issues[0].message).toContain("valid UUID");
+      expect(result.error.issues[0]?.message).toContain("valid UUID");
     }
   });
 
@@ -454,7 +454,7 @@ describe("ScoreUpdateSchema", () => {
     const result = ScoreUpdateSchema.safeParse(scoreUpdate);
     expect(result.success).toBe(false);
     if (!result.success) {
-      expect(result.error.issues[0].message).toContain("at least 0");
+      expect(result.error.issues[0]?.message).toContain("at least 0");
     }
   });
 
@@ -466,7 +466,7 @@ describe("ScoreUpdateSchema", () => {
     const result = ScoreUpdateSchema.safeParse(scoreUpdate);
     expect(result.success).toBe(false);
     if (!result.success) {
-      expect(result.error.issues[0].message).toContain("not exceed 10000");
+      expect(result.error.issues[0]?.message).toContain("not exceed 10000");
     }
   });
 
@@ -478,7 +478,7 @@ describe("ScoreUpdateSchema", () => {
     const result = ScoreUpdateSchema.safeParse(scoreUpdate);
     expect(result.success).toBe(false);
     if (!result.success) {
-      expect(result.error.issues[0].message).toContain("integer");
+      expect(result.error.issues[0]?.message).toContain("integer");
     }
   });
 

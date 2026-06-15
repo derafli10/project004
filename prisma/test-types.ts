@@ -67,7 +67,7 @@ function verifyTypes() {
   console.log('✅ Type-safe component data structure validated');
   console.log(`   name: ${componentData.name}`);
   console.log(`   weight: ${componentData.weight} (${componentData.weight / 100}%)`);
-  console.log(`   achievedScore: ${componentData.achievedScore} (${componentData.achievedScore / 100}%)\n`);
+  console.log(`   achievedScore: ${componentData.achievedScore} (${componentData.achievedScore !== null ? componentData.achievedScore / 100 : 'N/A'}%)\n`);
 
   // Test 7: Verify integer constraints (0-10000 range)
   console.log('Test 7: Integer range validation');

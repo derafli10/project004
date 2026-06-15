@@ -60,7 +60,7 @@ export async function getCoursesServerAction(request: Request) {
 export async function updateCourseServerAction(
   request: Request,
   courseId: string,
-  updateData: { name?: string; sks?: number; targetGrade?: string }
+  updateData: { name?: string; sks?: number; targetGrade?: import("@prisma/client").TargetGrade }
 ) {
   try {
     const tenantId = extractTenantIdFromHeaders(request.headers);
@@ -111,7 +111,7 @@ export async function createCourseWithComponentsServerAction(
   courseData: {
     name: string;
     sks: number;
-    targetGrade: string;
+    targetGrade: import("@prisma/client").TargetGrade;
     components: Array<{
       name: string;
       weight: number;
@@ -121,10 +121,11 @@ export async function createCourseWithComponentsServerAction(
   const tenantId = extractTenantIdFromHeaders(request.headers);
   
   const result = await executeTransaction(async (tx) => {
+    const { components: _, ...courseInfo } = courseData;
     // Create course with tenantId
     const course = await tx.course.create({
       data: {
-        ...courseData,
+        ...courseInfo,
         tenantId,
       },
     });

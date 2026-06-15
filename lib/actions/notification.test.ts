@@ -110,7 +110,7 @@ describe('Notification Server Actions', () => {
       expect(result.success).toBe(true);
       if (result.success) {
         expect(result.data).toHaveLength(2);
-        expect(result.data[0].id).toBe('notif-1');
+        expect(result.data[0]?.id).toBe('notif-1');
         // Verify tenantId filtering
         expect(prismaMock.notification.findMany).toHaveBeenCalledWith({
           where: { tenantId: 'tenant-123' },

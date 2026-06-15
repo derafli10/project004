@@ -93,7 +93,7 @@ export function validateTenantOwnership(
   // Check for empty, null, or undefined values
   if (!resourceTenantId || !sessionTenantId) {
     logTenantValidationFailure({
-      sessionTenantId: sessionTenantId || 'MISSING',
+      tenantId: sessionTenantId || 'MISSING',
       resourceTenantId: resourceTenantId || 'MISSING',
       status: 'FAILURE',
       details: { reason: 'Missing tenantId values' },
@@ -107,7 +107,7 @@ export function validateTenantOwnership(
       resourceTenantId !== resourceTenantId.trim() || 
       sessionTenantId !== sessionTenantId.trim()) {
     logTenantValidationFailure({
-      sessionTenantId: sessionTenantId || 'MISSING',
+      tenantId: sessionTenantId || 'MISSING',
       resourceTenantId: resourceTenantId || 'MISSING',
       status: 'FAILURE',
       details: { reason: 'Missing tenantId values' },
@@ -119,7 +119,7 @@ export function validateTenantOwnership(
   
   if (!isValid) {
     logTenantValidationFailure({
-      sessionTenantId: sessionTenantId,
+      tenantId: sessionTenantId,
       resourceTenantId: resourceTenantId,
       status: 'UNAUTHORIZED',
       details: { reason: 'Tenant ID mismatch' },
@@ -230,7 +230,7 @@ export function createScopedPrismaClient(
           if (typeof fnOrOperations === 'function') {
             return original.call(target, async (tx: PrismaClient) => {
               // Create a scoped version of the transaction client
-              const scopedTx = createScopedPrismaClient(tx, tenantId);
+              const scopedTx = createScopedPrismaClient(tx as unknown as PrismaClient, tenantId);
               return fnOrOperations(scopedTx);
             });
           }
@@ -327,7 +327,7 @@ export async function executeTenantTransaction<T>(
 ): Promise<T> {
   return await prisma.$transaction(async (tx) => {
     try {
-      const result = await operation(tx);
+      const result = await operation(tx as unknown as PrismaClient);
       
       // Log successful transaction
       console.log('[TENANT_TRANSACTION] Success:', {
@@ -371,7 +371,7 @@ export function validateBatchTenantOwnership(
       });
       
       logTenantValidationFailure({
-        sessionTenantId,
+        tenantId: sessionTenantId,
         resourceTenantId: resource.tenantId,
         status: 'UNAUTHORIZED',
         details: {

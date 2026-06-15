@@ -61,10 +61,10 @@ describe("Component Weight Validation Integration Tests", () => {
       orderBy: { name: "asc" },
     });
     expect(savedInitial).toHaveLength(2);
-    expect(savedInitial[0].name).toBe("Final Exam");
-    expect(savedInitial[0].weight).toBe(6000);
-    expect(savedInitial[1].name).toBe("Midterm Exam");
-    expect(savedInitial[1].weight).toBe(4000);
+    expect(savedInitial[0]?.name).toBe("Final Exam");
+    expect(savedInitial[0]?.weight).toBe(6000);
+    expect(savedInitial[1]?.name).toBe("Midterm Exam");
+    expect(savedInitial[1]?.weight).toBe(4000);
 
     // 2. Submit new components with weights summing to 99.50% (9950), which is outside the ±0.10% tolerance (9990 - 10010)
     const invalidComponents = [
@@ -73,7 +73,9 @@ describe("Component Weight Validation Integration Tests", () => {
     ];
     const invalidResult = await saveComponents(courseId, invalidComponents);
     expect(invalidResult.success).toBe(false);
-    expect(invalidResult.error).toBe("Validation error");
+    if (!invalidResult.success) {
+      expect(invalidResult.error).toBe("Validation error");
+    }
 
     // 3. Verify transaction rollback on validation failure: the initial valid components must STILL exist
     const postFailureComponents = await prisma.component.findMany({
@@ -81,10 +83,10 @@ describe("Component Weight Validation Integration Tests", () => {
       orderBy: { name: "asc" },
     });
     expect(postFailureComponents).toHaveLength(2);
-    expect(postFailureComponents[0].name).toBe("Final Exam");
-    expect(postFailureComponents[0].weight).toBe(6000);
-    expect(postFailureComponents[1].name).toBe("Midterm Exam");
-    expect(postFailureComponents[1].weight).toBe(4000);
+    expect(postFailureComponents[0]?.name).toBe("Final Exam");
+    expect(postFailureComponents[0]?.weight).toBe(6000);
+    expect(postFailureComponents[1]?.name).toBe("Midterm Exam");
+    expect(postFailureComponents[1]?.weight).toBe(4000);
   });
 
   it("should succeed saving when component weights sum to 100.05% (10005, within tolerance)", async () => {
@@ -103,11 +105,11 @@ describe("Component Weight Validation Integration Tests", () => {
       orderBy: { name: "asc" },
     });
     expect(saved).toHaveLength(3);
-    expect(saved[0].name).toBe("Component A");
-    expect(saved[0].weight).toBe(3335);
-    expect(saved[1].name).toBe("Component B");
-    expect(saved[1].weight).toBe(3335);
-    expect(saved[2].name).toBe("Component C");
-    expect(saved[2].weight).toBe(3335);
+    expect(saved[0]?.name).toBe("Component A");
+    expect(saved[0]?.weight).toBe(3335);
+    expect(saved[1]?.name).toBe("Component B");
+    expect(saved[1]?.weight).toBe(3335);
+    expect(saved[2]?.name).toBe("Component C");
+    expect(saved[2]?.weight).toBe(3335);
   });
 });
