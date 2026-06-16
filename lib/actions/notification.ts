@@ -1,11 +1,11 @@
 "use server";
 
-import { PrismaClient, Notification, AlertLevel } from "@prisma/client";
+import { Notification, AlertLevel } from "@prisma/client";
 import { executeTransaction, Result } from "../transactions";
 import { getTenantIdFromRequest } from "../server-context";
 import { z } from "zod";
 
-const prisma = new PrismaClient();
+import { prisma } from "../db";
 const UUIDSchema = z.string().min(1);
 
 /**
