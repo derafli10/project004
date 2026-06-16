@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Space_Grotesk, Space_Mono, Inter } from "next/font/google";
 import "./globals.css";
 import CustomCursor from "@/components/ui/CustomCursor";
+import AmbientBackground from "@/components/ui/AmbientBackground";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -44,7 +45,10 @@ export default function RootLayout({
         >
           Skip to main content
         </a>
-        {children}
+        <AmbientBackground />
+        <div className="relative z-10 flex flex-col min-h-screen">
+          {children}
+        </div>
       </body>
     </html>
   );
