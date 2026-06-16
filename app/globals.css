@@ -66,9 +66,9 @@
     @apply disabled:hover:translate-x-0 disabled:hover:translate-y-0;
   }
 
-  /* Brutalist Card */
+  /* Brutalist Card with Glassmorphism */
   .card-brutal {
-    @apply border-brutal border-brutal-border bg-brutal-black;
+    @apply border-brutal border-brutal-border bg-brutal-black/80 backdrop-blur-md;
     @apply p-6 shadow-brutal;
   }
 

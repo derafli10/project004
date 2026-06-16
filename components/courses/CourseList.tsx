@@ -45,7 +45,7 @@ export async function CourseList({ page = 1 }: CourseListProps) {
   return (
     <>
       <div className="hidden md:block">
-        <div className="border-brutal border-brutal-border bg-brutal-black overflow-x-auto shadow-brutal">
+        <div className="border-brutal border-brutal-border bg-brutal-black/80 backdrop-blur-md overflow-x-auto shadow-brutal">
           <table className="w-full text-left border-collapse">
             <thead>
               <tr className="border-b-brutal border-brutal-border bg-brutal-border/5">
@@ -87,7 +87,7 @@ export async function CourseList({ page = 1 }: CourseListProps) {
 
       <div className="flex flex-col space-y-4 md:hidden">
         {courses.map((course) => (
-          <Card key={course.id} className="p-0 overflow-hidden group">
+          <Card key={course.id} className="p-0 overflow-hidden group bg-brutal-black/80 backdrop-blur-md">
             <Link href={`/courses/${course.id}` as Route} className="block p-5 active:bg-brutal-border/5 transition-colors">
               <div className="flex justify-between items-start mb-4">
                 <div>

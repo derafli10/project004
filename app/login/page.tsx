@@ -1,9 +1,8 @@
 
-
 export default function LoginPage() {
   // Temporary mock for development
   return (
-    <div className="min-h-screen flex items-center justify-center bg-brutal-black text-white p-4">
+    <div className="min-h-screen flex items-center justify-center text-white p-4">
       <div className="w-full max-w-md border-brutal border-white p-8">
         <h1 className="text-2xl font-grotesk font-bold mb-6 text-brutal-orange">Grade Optimizer Login</h1>
         <p className="font-sans mb-4 text-zinc-400">
