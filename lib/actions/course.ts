@@ -1,6 +1,6 @@
 "use server";
 
-import { PrismaClient, Course, Component } from "@prisma/client";
+import { Course, Component } from "@prisma/client";
 import { 
   CourseSchema, 
   CourseInput, 
@@ -12,7 +12,7 @@ import { calculateCourseAnalytics, CourseAnalytics } from "../analytics";
 import { z } from "zod";
 import { mapTargetGradeToThreshold } from "../converters";
 
-const prisma = new PrismaClient();
+import { prisma } from "../db";
 
 const UUIDSchema = z.string().min(1);
 

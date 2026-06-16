@@ -1,6 +1,6 @@
 "use server";
 
-import { PrismaClient, Component } from "@prisma/client";
+import { Component } from "@prisma/client";
 import { 
   ComponentsArraySchema, 
   ComponentsArrayInput,
@@ -12,7 +12,7 @@ import { getTenantIdFromRequest } from "../server-context";
 import { z } from "zod";
 import { calculateCourseAnalytics } from "../analytics";
 
-const prisma = new PrismaClient();
+import { prisma } from "../db";
 const UUIDSchema = z.string().min(1);
 
 export async function saveComponents(

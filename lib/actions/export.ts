@@ -1,11 +1,11 @@
 "use server";
 
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "../db";
 import { Result } from "../transactions";
 import { getTenantIdFromRequest } from "../server-context";
 import { calculateCourseAnalytics } from "../analytics";
 
-const prisma = new PrismaClient();
+
 
 export async function exportData(): Promise<Result<string>> {
   try {
