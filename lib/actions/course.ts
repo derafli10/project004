@@ -4,7 +4,6 @@ import { Course, Component } from "@prisma/client";
 import { 
   CourseSchema, 
   CourseInput, 
-  TargetGrade,
 } from "../validations";
 import { executeTransaction, Result } from "../transactions";
 import { getTenantIdFromRequest } from "../server-context";

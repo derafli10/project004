@@ -13,6 +13,7 @@
  */
 
 import { PrismaClient } from '@prisma/client';
+import { prisma } from './db';
 
 /**
  * Result discriminated union for type-safe error handling.
@@ -164,7 +165,6 @@ function sanitizeSensitiveData(data: unknown): unknown {
 export async function executeTransaction<T>(
   fn: (tx: PrismaClient) => Promise<T>
 ): Promise<Result<T>> {
-  const prisma = new PrismaClient();
 
   try {
     // Execute the transaction function with Prisma's $transaction API
@@ -208,8 +208,5 @@ export async function executeTransaction<T>(
       error: errorMessage,
       fieldErrors,
     };
-  } finally {
-    // Always disconnect to prevent connection leaks
-    await prisma.$disconnect();
   }
 }
